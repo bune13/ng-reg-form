@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-signin',
@@ -13,6 +15,7 @@ export class SigninComponent implements OnInit {
   forgetPassword:FormGroup
   flip:Boolean
   resetMailSend:Boolean
+  errorAlert:boolean = false;
  
 
   constructor(private apiService:ApiService, private router:Router) { }
@@ -21,7 +24,24 @@ export class SigninComponent implements OnInit {
     if(this.signInForm.valid){
       console.log(this.signInForm.value);
       console.log(this.signInForm);
-      this.apiService.checkUserLogin(this.signInForm.value);
+      let x:Observable<Object>=this.apiService.checkUserLogin(this.signInForm.value);
+      x.subscribe(
+        (result)=>{
+          if(result['Found']){
+            this.router.navigate(['/admin']);
+          }   
+          console.log(result)
+        },
+        (error)=>{
+          this.errorAlert = true;
+          console.log(error)
+        }
+      )
+      x.pipe(map(
+        (res)=>{
+          console.log(res)
+        }
+      ));
       this.apiService.onSubmitButton();      
       this.signInForm.reset();
       
@@ -34,8 +54,16 @@ export class SigninComponent implements OnInit {
 
   resetPassword(){
     if(this.forgetPassword.valid){
-console.log('reset your password yoooooo');
-this.resetMailSend=true;
+      console.log('reset your password yoooooo');
+      this.resetMailSend=true;
+      this.apiService.onForgetPassword(this.forgetPassword.value).subscribe(
+        (result)=>{
+          console.log(result)
+        },
+        (error)=>{
+          console.log(error)
+        }
+      );
     }
   }
 

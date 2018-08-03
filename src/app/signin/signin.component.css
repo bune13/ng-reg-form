@@ -163,3 +163,12 @@
   font-size: .8em;
   margin-top: 25px;
 }
+
+.errorAlert{
+  font-size: .8em;
+    margin-top: 25px;
+}
+
+.errorAlert p{
+  margin-bottom: 0px;
+}

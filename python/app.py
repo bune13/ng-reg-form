@@ -17,15 +17,14 @@ app = Flask(__name__)
 CORS(app)
 
 # -------------- Email Configuration --------------
-app.config['MAIL_SERVER'] = 'smtp.mail.yahoo.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USERNAME'] = 'test.dash@yahoo.com'
-app.config['MAIL_PASSWORD'] = 'exponentia'
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
-mail = Mail(app)
-
-
+def configMail():
+    app.config['MAIL_SERVER'] = 'smtp.mail.yahoo.com'
+    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_USERNAME'] = 'test.dash@yahoo.com'
+    app.config['MAIL_PASSWORD'] = 'exponentia'
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USE_SSL'] = False
+    mail = Mail(app)
 
 
 # -------------- TO CHECK IF USERID EXISTS --------------
@@ -58,6 +57,7 @@ def register():
         d['createdAt'] = datetime.datetime.now()
         con = conection_admin_db()
         con.regform.insert_one(d)
+        configMail() #config
         msg = Message('Welcome', sender = 'test.dash@yahoo.com', recipients = [d['email']])
         print d
         msg.body = "Hello "+str(d['first_name'])+" "+str(d['last_name'])+" Your Id "+str(d['username'])+" and Password"+str(d['password'])
@@ -100,10 +100,33 @@ def onlogin():
     c =con.regform.find_one({'username':uname,'password':psw})
     print c
     if c:
-        return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+        return json.dumps({'Found':True}), 200, {'ContentType':'application/json'}
     else:
-        return json.dumps({'success':False}), 404, {'ContentType':'application/json'}
-    
+        return json.dumps({'Found':False}), 404, {'ContentType':'application/json'}
+
+
+# -------------- FOR Forget Password --------------
+@app.route('/forgetpassword', methods=["POST"])
+def onforgetPassword():
+#    print dir(request)   
+    print "############# On Forget Password #############"
+    print request.data
+    d = json.loads(request.data)
+    print d["email"]
+    email = d["email"]
+    con = conection_admin_db()
+    c =con.regform.find_one({'email':email})
+    if c:
+        configMail() #config
+        msg = Message('Your New Password', sender = 'test.dash@yahoo.com', recipients = [d['email']])
+        print d
+        msg.body = "Hello"
+        print msg,type(msg.body)
+        #print help(mail.send)
+        mail.send(msg)
+        return json.dumps({'Found':True}), 200, {'ContentType':'application/json'}
+    else:
+        return json.dumps({'Found':False}), 404, {'ContentType':'application/json'}
 
 
 

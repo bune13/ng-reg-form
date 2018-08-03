@@ -20,14 +20,6 @@ export class ApiService {
 
   onRegPost(value){
     return this.httpClient.post(`${this.api_url}register`, value, httpOptions)
-    .subscribe(
-      (result) => {
-        console.log("onPreRegValidation successfully posted", result);
-        // if(result)
-      },
-      (error) => console.log('There was an error: ', error),
-      () => {}
-    );
   }
 
   onCheckEmailTaken(email:string):Observable<any>{
@@ -41,16 +33,11 @@ export class ApiService {
   checkUserLogin(value){
     console.log('INTO Check User Credentials');
     return this.httpClient.post(`${this.api_url}login`, value, httpOptions)
-      .subscribe(
-        (result) => {
-          console.log("onPreRegValidation successfully posted", result);
-          if(result['status'] === 200){
-            this.router.navigate(['/admin']);
-          }
-        },
-        (error) => console.log('There was an error: ', error),
-        () => {}
-      )
+  }
+
+  onForgetPassword(value){
+    console.log('Into Forget Password');
+    return this.httpClient.post(`${this.api_url}forgetpassword`, value, httpOptions)
   }
 
 
@@ -59,7 +46,6 @@ export class ApiService {
 
   onSubmitButton(){
     this.isLoggedIn = true;
-    console.log(this.isLoggedIn)
   }
 
   onLogoutButton(){

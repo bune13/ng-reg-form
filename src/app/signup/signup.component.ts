@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { map, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { ApiService } from '../shared/api.service';
 
@@ -13,31 +12,42 @@ import { ApiService } from '../shared/api.service';
 })
 export class SignupComponent implements OnInit {
   regForm:FormGroup;
-  alertAwake:boolean = false;
+  okayAlert:boolean = false;
+  errorAlert:boolean = false;
 
   constructor(private apiService: ApiService, private router:Router) { }
 
   onSubmit(){
     if(this.regForm.valid){
-      console.log(this.regForm.value);
-      console.log(this.regForm);
-      this.alertAwake = true;
-      this.apiService.onRegPost(this.regForm.value);
-      setTimeout((router: Router) => {
-        this.router.navigate(['/signin']);
-      }, 7000);
-      this.regForm.reset();
+      // console.log(this.regForm.value);
+      // console.log(this.regForm);  
+      this.regForm.reset();    
+      this.apiService.onRegPost(this.regForm.value).subscribe(
+        (result) => {
+          console.log("onPreRegValidation successfully posted", result);
+          this.okayAlert = true;
+          setTimeout((router: Router) => {
+            this.router.navigate(['/signin']);
+          }, 7000);          
+        },
+        (error) => {
+          console.log('There was an error: ', error);
+          this.errorAlert = true;
+        },
+        () => {}
+      );
+      
     }
   }
 
   onReset(){
-    this.alertAwake = false;
+    this.okayAlert = false;
     this.regForm.reset();
   }
 
 
   ngOnInit(){
-    this.alertAwake = false;
+    this.okayAlert = false;
     this.regForm = new FormGroup({
       'first_name': new FormControl(null, Validators.required),
       'last_name': new FormControl(null, Validators.required),

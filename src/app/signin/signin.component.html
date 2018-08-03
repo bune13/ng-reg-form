@@ -16,7 +16,7 @@
 
                 <div class="col-12 mb-4">
                   <h4>Log into your account</h4>
-                </div>
+                </div>                
 
                 <div class="col-12">
                   <div class="form-group">
@@ -35,13 +35,20 @@
 
               </div>
 
+              <!--------------------Alert------------------------>
+              <div class="errorAlert" *ngIf="errorAlert">
+                <alert type="danger">
+                  <p>Invalid Username or Password. Please try again</p>
+                </alert>
+              </div>
+
               <!-- ----------------Buttons---------------- -->
               <div class="row">
                 <div class="col-12 button">
                   <button class="btn btn-primary mr-2" type="submit" [disabled]="signInForm.invalid">Login</button>
                   <!-- <button class="btn btn-danger" type="button" (click)="onReset()">Reset</button> -->
                 </div>
-              </div>
+              </div>              
 
               <!-- ----------------Singup?---------------- -->
               <div class="row">
@@ -56,6 +63,11 @@
             </form>
 
           </div>
+
+
+          <!-- ------------------RESET PASSWORD-------------------- -->
+
+
           <div class="back">
             <form [formGroup]="forgetPassword" class="form-box forget-password" (ngSubmit)="resetPassword()">
               <div class="close-back" (click)="doFlip()">
