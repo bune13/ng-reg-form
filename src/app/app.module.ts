@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { BsDropdownModule, AlertModule, CollapseModule  } from 'ngx-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './shared/auth-guard.service';
+// import { ApiService } from './shared/api.service';
 
 import { AppComponent } from './app.component';
 import { SigninComponent } from './signin/signin.component';
@@ -34,7 +36,7 @@ import { AdminComponent } from './auth/admin/admin.component';
     AlertModule.forRoot(),
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
