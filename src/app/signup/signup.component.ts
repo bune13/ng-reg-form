@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from '../shared/api.service';
 
@@ -25,19 +25,20 @@ export class SignupComponent implements OnInit {
   }
 
 
-  ngOnInit() {
+  ngOnInit(){
+
 
     this.regForm = new FormGroup({
-      'fname': new FormControl("null", Validators.required),
-      'lname': new FormControl("null", Validators.required),
-      'bname': new FormControl("null", Validators.required),
-      'phone': new FormControl("9123", Validators.required),
-      'email': new FormControl("null@com", [Validators.required, Validators.email]),
-      'address': new FormControl("null", Validators.required),
-      'city': new FormControl("null", Validators.required),
-      'state': new FormControl("null", Validators.required),
-      'pcode': new FormControl("9123", Validators.required),
-      'typeb': new FormControl("null", Validators.required),
+      'first_name': new FormControl(null, Validators.required),
+      'last_name': new FormControl(null, Validators.required),
+      'business_name': new FormControl(null, Validators.required),
+      'phone': new FormControl(null, Validators.required),
+      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'address': new FormControl(null, Validators.required),
+      'city': new FormControl(null, Validators.required),
+      'state': new FormControl(null, Validators.required),
+      'pincode': new FormControl(null, Validators.required),
+      'business_type': new FormControl(null, Validators.required),
     });
 
   }

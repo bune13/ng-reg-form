@@ -15,11 +15,13 @@ export class ApiService {
   constructor(private httpClient:HttpClient) { }
 
   onApiPost(value){
-    return this.httpClient.post('http://localhost:4200/signup', value, httpOptions)
+    // return this.httpClient.post('http://127.0.0.1:5000/register', value, httpOptions)
+    return this.httpClient.post('http://192.168.0.103:5000/register', value, httpOptions)
     .subscribe(
       (result) => {
         console.log(result);
-      }, error => console.log('There was an error: ', error),
+      },
+      (error) => console.log('There was an error: ', error),
       () => {
         console.log("The POST observable is now completed.");
       }
