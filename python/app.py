@@ -5,7 +5,7 @@ import pymongo
 import datetime
 from flask_cors import CORS
 from Crypto.Hash import SHA256
-from flask.ext.api import status
+# from flask.ext.api import status
 
 con = pymongo.MongoClient()
 collection = con.test
@@ -18,6 +18,7 @@ def checkusername(value):
     if (collection.regform.find_one({'username': value})):
         checkusername(d)
     else:
+        print d
         return d
 
 print "**************** On Pre Email Validation ****************"
