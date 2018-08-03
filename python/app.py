@@ -21,7 +21,7 @@ def checkusername(value):
     if (collection.regform.find_one({'username': value})):
         checkusername(d)
     else:
-        print "PASSWORD--------------------------"
+        print "UserID--------------------------"
         print d
         return d
 
@@ -45,9 +45,9 @@ def register():
         d['createdAt'] = datetime.datetime.now()
         con = conection_admin_db()
         con.regform.insert_one(d)
-        return Response ({"register":'True'},status=200,mimetype='application/json')
+        return Response({"register":'True'},status=200,mimetype='application/json')
     else:
-        return Response ({"register":'False'},status=404,mimetype='application/json')
+        return Response({"register":'False'},status=404,mimetype='application/json')
 
 @app.route('/preemailvalidation', methods=["POST"])
 def prelogin():

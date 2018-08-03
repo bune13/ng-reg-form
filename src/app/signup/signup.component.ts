@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit {
       this.apiService.onRegPost(this.regForm.value);
       setTimeout((router: Router) => {
         this.router.navigate(['/signin']);
-      }, 10000);
+      }, 7000);
       this.regForm.reset();
     }
   }
