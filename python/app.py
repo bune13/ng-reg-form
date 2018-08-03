@@ -1,11 +1,16 @@
 from flask import Flask, redirect, url_for, request
 import json
+import uuid
 import pymongo
+import datetime
 from flask_cors import CORS
 con = pymongo.MongoClient()
 collection = con.test
 app = Flask(__name__)
 CORS(app)
+
+print "**************** On Pre Email Validation ****************"
+print str(uuid.uuid4())[:8]
 
 @app.route('/register', methods=["GET", "POST"])
 def login():
@@ -14,7 +19,14 @@ def login():
         print "############# On Register #############"
         print request.data
         d = json.loads(request.data)
-        #print type(d)        
+        d['username'] = str(uuid.uuid4())[:8]
+        d['password'] = str(uuid.uuid4())[:8]
+        d['createdAt'] = datetime.datetime.now()
+        # d['username'] = "aaa"
+        # d['password'] = "aaa"
+        print "^^^^^^^^^^^^ with username and password ^^^^^^^^^^^^"
+        print d
+        
         collection.regform.insert_one(d)
         return "0"
     else:
