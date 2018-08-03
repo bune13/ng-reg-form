@@ -56,8 +56,10 @@ export class ApiService{
   }
 
   onLogoutService(){
+    this.router.navigate(['/loggedout']);
     this.token = null;
-    this.router.navigate[('/loggedout')];
+    console.log("##########################")
+    
   }
 
   isAuthenticatedService(){
