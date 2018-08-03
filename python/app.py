@@ -7,8 +7,8 @@ from flask_cors import CORS
 from flask import Response
 #from Crypto.Hash import SHA256
 # from flask.ext.api import status
-from flask_restful import Resource, Api
-from flask_restful  import Api
+# from flask_restful import Resource, Api
+# from flask_restful  import Api
 from connection.connection_mongo import conection_admin_db,conection_user_db
 con = pymongo.MongoClient()
 collection = con.test
@@ -21,10 +21,10 @@ def checkusername(value):
     if (collection.regform.find_one({'username': value})):
         checkusername(d)
     else:
-        print "UserID--------------------------"
         print d
         return d
 
+# -------------- FOR REGISTRATION SIGNUP --------------
 print "**************** On Pre Email Validation ****************"
 @app.route('/register', methods=["GET", "POST"])
 def register():
@@ -40,16 +40,17 @@ def register():
         d['role'] = 'admin'
         d['db_name'] = d['business_name'].replace(' ','')
 
-        # -------------- GENERATING HASH PASSWORD --------------
+        # -------------- GENERATING RANDOM PASSWORD --------------
         userpass = str(uuid.uuid4())[:8]        
         d['createdAt'] = datetime.datetime.now()
         con = conection_admin_db()
         con.regform.insert_one(d)
-        return Response({"register":'True'},status=200,mimetype='application/json')
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
     else:
-        return Response({"register":'False'},status=404,mimetype='application/json')
+        return json.dumps({'success':False}), 404, {'ContentType':'application/json'}
 
-@app.route('/preemailvalidation', methods=["POST"])
+# -------------- VALIDATED EMAIL ASYNC --------------
+@app.route('/emailvalidation', methods=["POST"])
 def prelogin():
 #    print dir(request)   
     print "############# On Pre Email Validation #############"        
@@ -61,13 +62,11 @@ def prelogin():
     print f
     # print type(f)
     if f:
-        content = {'please move along': 'nothing to see here'}
-        # return content, status.HTTP_404_NOT_FOUND
         return "1"
     else:
-        # return HTTP_202_ACCEPTED
         return "0"
 
+# -------------- FOR LOGIN PAGE --------------
 @app.route('/login', methods=["POST"])
 def onlogin():
 #    print dir(request)   
@@ -76,10 +75,12 @@ def onlogin():
     d = json.loads(request.data)
     print d["password"]
     con = conection_admin_db()
-    c =con.find_one(d)
+    c =con.regform.find_one({})
     print c
     
     return "0"
+
+
 
 
 if __name__ == '__main__':
