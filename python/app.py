@@ -45,7 +45,7 @@ def login():
         # d['password'] = "aaa"
         # print "^^^^^^^^^^^^ with username and password ^^^^^^^^^^^^"
         print d
-        con = conection_admin_db
+        con = conection_admin_db()
         con.regform.insert_one(d)
         return "0"
     else:
