@@ -1,0 +1,168 @@
+<div class="container my-5">
+  <div class="row">
+
+    <div class="col-8 mx-auto">
+
+      <div class="col-12">
+        <h1>Register your business</h1>
+      </div>
+
+      <div class="col-12">
+        <p>Please provide all required details to register your business with us</p>
+      </div>
+
+      <hr>
+
+      <div class="col-12">
+        <form [formGroup]="regForm" (ngSubmit)="onSubmit()" #regform="ngForm">
+
+          <!-- ----------------Names---------------- -->
+          <div class="row">
+
+            <div class="col-md-6 col-12">
+              <div class="form-group">
+                <label for="fname">First Name
+                  <span class="requiredstar">*</span>
+                </label>
+                <input type="text" id="fname" class="form-control" placeholder="John" required [formControlName]="'fname'" #fname>
+              </div>
+            </div>
+            <span *ngIf="fname.invalid && fname.touched">
+                First Name is required
+            </span>
+            <div class="col-md-6 col-12">
+              <div class="form-group">
+                <label for="lname">Last Name
+                  <span class="requiredstar">*</span>
+                </label>
+                <input type="text" id="lname" class="form-control" placeholder="Doe" required [formControlName]="'lname'">
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ----------------Business Name---------------- -->
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="bname">Business Name
+                  <span class="requiredstar">*</span>
+                </label>
+                <input type="text" id="bname" class="form-control" placeholder="johndoe company" required [formControlName]="'bname'">
+              </div>
+            </div>
+          </div>
+
+          <!-- ----------------Contact---------------- -->
+          <div class="row">
+
+            <div class="col-md-6 col-12">
+              <div class="form-group">
+                <label for="phone">Contact Number
+                  <span class="requiredstar">*</span>
+                </label>
+                <input type="number" id="phone" class="form-control" placeholder="+9197692120" required [formControlName]="'phone'">
+              </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+              <div class="form-group">
+                <label for="email">Email
+                  <span class="requiredstar">*</span>
+                </label>
+                <input type="email" id="email" class="form-control" placeholder="johndoe@company.com" required [formControlName]="'email'">
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ----------------Address---------------- -->
+          <div class="row">
+
+            <div class="col-12">
+              <div class="form-group">
+                <label for="address">Address
+                  <span class="requiredstar">*</span>
+                </label>
+                <input type="text" id="address" class="form-control" placeholder="Office Location..." required [formControlName]="'address'">
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ----------------Address 2---------------- -->
+          <div class="row">
+
+            <div class="col-md-6 col-12">
+              <div class="form-group">
+                <label for="city">City
+                  <span class="requiredstar">*</span>
+                </label>
+                <input type="string" id="city" class="form-control" placeholder="Mumbai" required [formControlName]="'city'">
+              </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+              <div class="form-group">
+                <label for="state">State
+                  <span class="requiredstar">*</span>
+                </label>
+                <input type="string" id="state" class="form-control" placeholder="Maharashtra" required [formControlName]="'state'">
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ----------------Address 3---------------- -->
+          <div class="row">
+
+            <div class="col-md-6 col-12">
+              <div class="form-group">
+                <label for="pcode">Postal Code
+                  <span class="requiredstar">*</span>
+                </label>
+                <input type="number" id="pcode" class="form-control" placeholder="400094" required [formControlName]="'pcode'">
+              </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+              <div class="form-group">
+                <label for="country">ANGULAR COUNTRY PICKER
+                  <span class="requiredstar">*</span>
+                </label>
+                <input type="string" id="country" class="form-control" placeholder="Country picker to be added" required>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ----------------Address 3---------------- -->
+          <div class="row">
+
+            <div class="col-12">
+              <div class="form-group">
+                <label for="typeb">Type of Business (Select)
+                  <span class="requiredstar">*</span>
+                </label>
+                <input type="string" id="typeb" class="form-control" placeholder="web development.." required [formControlName]="'typeb'">
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="row my-4">
+            <div class="col-12">
+              <button class="btn btn-primary mr-2" type="submit" [disabled]="regForm.invalid">Submit</button>
+              <button class="btn btn-danger" type="button" (click)="onReset()">Reset</button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

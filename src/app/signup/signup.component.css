@@ -1,0 +1,14 @@
+.requiredstar {
+  color: red;
+}
+
+input.ng-valid[required],
+input.ng-valid.required {
+  border: 1px solid #42A948;
+  /* green */
+}
+
+input.ng-dirty.ng-invalid {
+  border: 1px solid red;
+  /* red */
+}
