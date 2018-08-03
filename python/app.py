@@ -61,9 +61,11 @@ def prelogin():
     # print type(f)
     if f:
         content = {'please move along': 'nothing to see here'}
-        return content, status.HTTP_404_NOT_FOUND
+        # return content, status.HTTP_404_NOT_FOUND
+        return "1"
     else:
-        return HTTP_202_ACCEPTED
+        # return HTTP_202_ACCEPTED
+        return "0"
 
 if __name__ == '__main__':
    app.run(debug = True)
