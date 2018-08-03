@@ -16,7 +16,7 @@ collection = con.test
 app = Flask(__name__)
 CORS(app)
 
-# ----------------------------------------------
+# -------------- Email Configuration --------------
 app.config['MAIL_SERVER'] = 'smtp.mail.yahoo.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = 'test.dash@yahoo.com'

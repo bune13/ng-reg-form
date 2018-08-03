@@ -22,8 +22,7 @@ export class SigninComponent implements OnInit {
       console.log(this.signInForm.value);
       console.log(this.signInForm);
       this.apiService.checkUserLogin(this.signInForm.value);
-      this.apiService.onSubmitButton();
-      this.router.navigate(['/admin']);
+      this.apiService.onSubmitButton();      
       this.signInForm.reset();
       
     }

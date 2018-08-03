@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 const httpOptions = {
@@ -15,12 +16,15 @@ export class ApiService {
   api_url:string="http://127.0.0.1:5000/";
   validEmail:number;
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient, private router:Router) { }
 
   onRegPost(value){
     return this.httpClient.post(`${this.api_url}register`, value, httpOptions)
     .subscribe(
-      (result) => {console.log("onPreRegValidation successfully posted", result);},
+      (result) => {
+        console.log("onPreRegValidation successfully posted", result);
+        // if(result)
+      },
       (error) => console.log('There was an error: ', error),
       () => {}
     );
@@ -40,6 +44,9 @@ export class ApiService {
       .subscribe(
         (result) => {
           console.log("onPreRegValidation successfully posted", result);
+          if(result['status'] === 200){
+            this.router.navigate(['/admin']);
+          }
         },
         (error) => console.log('There was an error: ', error),
         () => {}
