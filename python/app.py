@@ -4,27 +4,44 @@ import uuid
 import pymongo
 import datetime
 from flask_cors import CORS
+from Crypto.Hash import SHA256
+from flask.ext.api import status
+
 con = pymongo.MongoClient()
 collection = con.test
 app = Flask(__name__)
 CORS(app)
 
-print "**************** On Pre Email Validation ****************"
-print str(uuid.uuid4())[:8]
+# -------------- TO CHECK IF USERID EXISTS --------------
+def checkusername(value):
+    d = str(uuid.uuid4())[:8]
+    if (collection.regform.find_one({'username': value})):
+        checkusername(d)
+    else:
+        return d
 
+print "**************** On Pre Email Validation ****************"
 @app.route('/register', methods=["GET", "POST"])
 def login():
 #    print dir(request)
     if request.method == 'POST':
-        print "############# On Register #############"
+        print "-------------- On Register --------------"
         print request.data
         d = json.loads(request.data)
-        d['username'] = str(uuid.uuid4())[:8]
-        d['password'] = str(uuid.uuid4())[:8]
+        username = str(uuid.uuid4())[:8]
+        cleanusername = checkusername(username)
+        d['username'] = cleanusername
+        # -------------- GENERATING HASH PASSWORD --------------
+        userpass = str(uuid.uuid4())[:8]        
+        hash = SHA256.new(userpass).hexdigest()
+        # print "^^^^^^^^^^^^ hash ^^^^^^^^^^^^"
+        # print userpass
+        # print hash
+        d['password'] = hash
         d['createdAt'] = datetime.datetime.now()
         # d['username'] = "aaa"
         # d['password'] = "aaa"
-        print "^^^^^^^^^^^^ with username and password ^^^^^^^^^^^^"
+        # print "^^^^^^^^^^^^ with username and password ^^^^^^^^^^^^"
         print d
         
         collection.regform.insert_one(d)
@@ -43,9 +60,10 @@ def prelogin():
     print f
     # print type(f)
     if f:
-        return "1"
+        content = {'please move along': 'nothing to see here'}
+        return content, status.HTTP_404_NOT_FOUND
     else:
-        return "0"
+        return HTTP_202_ACCEPTED
 
 if __name__ == '__main__':
    app.run(debug = True)
