@@ -34,20 +34,20 @@ export class ApiService{
 
   checkUserLogin(value){
     console.log('INTO Check User Credentials');
-    return this.httpClient.post(`${this.api_url}login`, value, httpOptions)
-      .subscribe(
-        (result)=>{
-          if(result['Found'] && result['access_token'] !== null){
-            console.log(result);
-            this.router.navigate(['/admin']); 
-            this.token = result['access_token'];            
-          }
-        },
-        (error)=>{
-          this.errorAlert = true; 
-          console.log(error)
+    return this.httpClient.post(`${this.api_url}login`, value, httpOptions).subscribe(
+      (result)=>{
+        if(result['Found'] && result['access_token'] !== null){
+          console.log(result);
+          this.router.navigate(['/admin']); 
+          this.token = result['access_token'];            
         }
-    )
+      },
+      (error)=>{
+        this.errorAlert = true; 
+        console.log(error)
+      }
+  )
+      
   }
 
   onForgetPassword(value){
@@ -62,23 +62,6 @@ export class ApiService{
 
   isAuthenticatedService(){
     return this.token != null;
-  }
-
-
-  // ---------------------- FAKE AUTHENTICATION w/o tokens -----------------
-  public isLoggedIn:boolean;
-
-  onSubmitButton(){
-    this.isLoggedIn = true;
-  }
-
-  onLogoutButton(){
-    this.isLoggedIn =false;
-  }
-
-  isAuthenticated(){
-    console.log("-------------isAuthenticated-------------")
-    return this.isLoggedIn;
   }
 
 }

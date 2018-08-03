@@ -14,7 +14,10 @@ export class SigninComponent implements OnInit {
   signInForm:FormGroup
   forgetPassword:FormGroup
   flip:Boolean
-  resetMailSend:Boolean
+  resetMailSend:Boolean = false;
+  resetMainNotSent:boolean = false;
+  errorAlert:boolean = false;
+  waitText:boolean = false;
   
  
 
@@ -37,17 +40,29 @@ export class SigninComponent implements OnInit {
   resetPassword(){
     if(this.forgetPassword.valid){
       console.log('reset your password');
-      this.resetMailSend=true;
+      this.waitText = true;
       this.apiService.onForgetPassword(this.forgetPassword.value).subscribe(
         (result)=>{
-          console.log(result)          
-          // setTimeout(() => {
-            this.resetMailSend = false;
-            this.doFlip();
-          // }, 3000);
+          console.log(result)
+          if(result[status] !== 404){
+            this.waitText = false;
+            this.resetMailSend=true;
+            setTimeout(()=>{
+              this.resetMailSend=false;
+              this.doFlip()
+            },5000)
+          }
         },
         (error)=>{
-          console.log(error)
+          console.log("ERRRRROR",error)
+          if(error.status==404){
+            this.resetMainNotSent = true;
+            this.waitText = false;
+            setTimeout(()=>{
+              this.resetMainNotSent=false;
+              this.doFlip()
+            },5000)
+          }
         }
       );
     }

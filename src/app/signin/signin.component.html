@@ -36,7 +36,7 @@
               </div>
 
               <!--------------------Alert------------------------>
-              <div class="errorAlert" *ngIf="apiService.errorAlert">
+              <div class="errorAlert" *ngIf="errorAlert">
                 <alert type="danger">
                   <p>Invalid Username or Password. Please try again</p>
                 </alert>
@@ -96,9 +96,19 @@
                   <!-- <button class="btn btn-danger" type="button" (click)="onReset()">Reset</button> -->
                 </div>
               </div>
+              <div class="status" *ngIf="waitText">
+                <alert type="info">
+                  Please wait !!!
+                </alert>
+              </div>
               <div class="status" *ngIf="resetMailSend">
                 <alert type="success">
                   We have send you a mail for password reset. kindly check your mail
+                </alert>
+              </div>
+              <div class="status" *ngIf="resetMainNotSent">
+                <alert type="danger">
+                  Sorry. No such Email
                 </alert>
               </div>
 
