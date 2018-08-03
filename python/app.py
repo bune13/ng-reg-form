@@ -18,6 +18,7 @@ def checkusername(value):
     if (collection.regform.find_one({'username': value})):
         checkusername(d)
     else:
+        print "PASSWORD--------------------------"
         print d
         return d
 
