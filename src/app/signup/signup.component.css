@@ -2,13 +2,18 @@
   color: red;
 }
 
-input.ng-valid[required],
-input.ng-valid.required {
+input.ng-valid,
+input.ng-valid {
   border: 1px solid #42A948;
   /* green */
 }
 
-input.ng-dirty.ng-invalid {
+input.ng-dirty.ng-invalid,
+  input.ng-touched.ng-invalid {
   border: 1px solid red;
   /* red */
+}
+
+.display-validation{
+  display: block;
 }

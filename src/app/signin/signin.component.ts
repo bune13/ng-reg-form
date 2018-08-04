@@ -10,11 +10,6 @@ export class SigninComponent implements OnInit {
 
   constructor(private apiService:ApiService) { }
 
-  ngOnInit() {
-    this.apiService.getFilmService().subscribe(
-      (data)=>{
-        console.log(data);
-      });
-  }
+  ngOnInit() {}
 
 }

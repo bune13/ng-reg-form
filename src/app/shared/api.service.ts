@@ -28,14 +28,14 @@ export class ApiService {
     );
   }
 
-  getFilmService(){
-    return this.httpClient.get(`https://swapi.co/api/`, {observe:'body', responseType:'json'})
-      .pipe(map(
-        (data:Object)=>{
-          console.log(data);
-          return data;
-        }
-      ));
-  }
+  // getFilmService(){
+  //   return this.httpClient.get(`https://swapi.co/api/`, {observe:'body', responseType:'json'})
+  //     .pipe(map(
+  //       (data:Object)=>{
+  //         console.log(data);
+  //         return data;
+  //       }
+  //     ));
+  // }
 
 }
