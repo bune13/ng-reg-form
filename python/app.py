@@ -2,27 +2,11 @@ from flask import Flask, redirect, url_for, request
 import json
 import pymongo
 from flask_cors import CORS
-# def mongo_connection():
 con = pymongo.MongoClient()
 collection = con.test
-	# return collection
 app = Flask(__name__)
 CORS(app)
-#@app.route('/success/<name>')
-#def success(name):
-#   return 'welcome %s' % name
 
-@app.route('/success')
-def success():
-   return 'Welcome'
-
-
-
-@app.route("/reg", methods=["GET", "POST"])
-def reg():
-	if request.method == 'POST':
-         print request.data
-#@app.route('/login',methods = ['POST', 'GET'])
 @app.route('/register', methods=["GET", "POST"])
 def login():
 #    print dir(request)
@@ -42,10 +26,15 @@ def prelogin():
     if request.method == 'POST':
         print "############# On Pre Email Validation #############"        
         print request.data
-        # d = json.loads(request.data)
+        d = request.data
         #print type(d)        
-        #collection.regform.insert_one(d)
-        return "0"
+        f = collection.regform.find_one({'email': d})
+        print f
+        # print type(f)
+        if f:
+            return "1"
+        else:
+            return "0"
     else:
         return "1"
 

@@ -18,6 +18,7 @@ export class SignupComponent implements OnInit {
   onSubmit(){
     if(this.regForm.valid){
       console.log(this.regForm.value);
+      console.log(this.regForm);
       this.apiService.onRegPost(this.regForm.value);
       this.onReset();
     }
@@ -46,12 +47,12 @@ export class SignupComponent implements OnInit {
   checkEmailValidation(control:FormControl): Promise<any>| Observable<any>{
     const promise = new Promise<any>(
       (resolve, reject)=>{
+        console.log(control)
         setTimeout(()=>{
-          // this.apiService.onPreRegEmailVPost(control.value);
-          if(control.value == "test@test.com"){
-            resolve({'emailIsForbinner':true})
-          }
-          else{
+          this.apiService.onPreRegEmailVPost(control.value);
+          if(this.apiService.validEmail){
+            resolve({'emailIsForbidden':true})
+          }else{
             resolve(null);
           }
         },1000);        
