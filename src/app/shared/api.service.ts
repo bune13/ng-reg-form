@@ -11,21 +11,28 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ApiService {
+  api_url:string="http://127.0.0.1:5000/"
 
   constructor(private httpClient:HttpClient) { }
 
-  onApiPost(value){
+  onRegPost(value){
     // return this.httpClient.post('http://127.0.0.1:5000/register', value, httpOptions)
-    return this.httpClient.post('http://192.168.0.103:5000/register', value, httpOptions)
+    return this.httpClient.post(`${this.api_url}register`, value, httpOptions)
     .subscribe(
-      (result) => {
-        console.log(result);
-      },
+      (result) => {console.log("onPreRegValidation successfully posted");},
       (error) => console.log('There was an error: ', error),
-      () => {
-        console.log("The POST observable is now completed.");
-      }
+      () => {console.log("The POST observable is now completed.")}
     );
+  }
+
+  onPreRegEmailVPost(email){
+    console.log('IN')
+    return this.httpClient.post(`${this.api_url}preemailvalidation`, email, httpOptions)
+      .subscribe(
+        (result)=>{console.log("onPreRegValidation successfully posted, result: ", result)},
+        (error)=>{console.log('There was an error: ', error)},
+        ()=>{console.log("The POST observable is now completed.")}
+      );
   }
 
   // getFilmService(){

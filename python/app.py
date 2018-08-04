@@ -27,14 +27,24 @@ def reg():
 def login():
 #    print dir(request)
     if request.method == 'POST':
-        print "HI"        
+        print "############# On Register #############"
         print request.data
         d = json.loads(request.data)
-        #print type(d)
-        
+        #print type(d)        
         collection.regform.insert_one(d)
-		# collection.chathistory.insert_one({'username':request.form['Name'],'email':request.form['Email'],'phone':request.form['Phone'],'message':request.form['send_username']})
-        #return render_template("messagesend.html")
+        return "0"
+    else:
+        return "1"
+
+@app.route('/preemailvalidation', methods=["GET", "POST"])
+def prelogin():
+#    print dir(request)
+    if request.method == 'POST':
+        print "############# On Pre Email Validation #############"        
+        print request.data
+        # d = json.loads(request.data)
+        #print type(d)        
+        #collection.regform.insert_one(d)
         return "0"
     else:
         return "1"
