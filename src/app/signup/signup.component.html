@@ -118,6 +118,9 @@
                 <div class="invalid-feedback" [ngClass]="{'display-validation': regForm.get('email').invalid && regForm.get('email').touched && !regForm.get('email').errors.emailIsForbidden}">
                   This field is required.
                 </div>
+                <div class="valid-feedback" [ngClass]="{'display-validation': regForm.get('email').pending}">
+                  Checking....
+                </div>
                 <div class="invalid-feedback" [ngClass]="{'display-validation': regForm.get('email').invalid && regForm.get('email').dirty && regForm.get('email').errors.emailIsForbidden}">
                   Seems like this id is already registered. Try different id or sign in again
                 </div>

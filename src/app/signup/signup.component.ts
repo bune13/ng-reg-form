@@ -55,7 +55,7 @@ export class SignupComponent implements OnInit {
           }else{
             resolve(null);
           }
-        },1000);        
+        },3000);        
       }
     )
     return promise;
