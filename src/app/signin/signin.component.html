@@ -1,13 +1,53 @@
 <section class="signin-container">
-  <div class="header-text-box">
-    
-    <div class="container border">
-      <div class="row">
+  <div class="header-text-box d-flex justify-content-center align-items-center">
+    <div class="col-10 col-md-6 col-lg-4">
 
-          
-        
-      </div>
+      <form [formGroup]="signInForm" class="form-box">
+
+        <!-- ----------------Inputs---------------- -->
+        <div class="row">
+
+          <div class="col-12 mb-4">
+            <h4>Log into your account</h4>
+          </div>
+
+          <div class="col-12">
+            <div class="form-group">
+              <input type="text" id="username" class="form-control" placeholder="Username" [formControlName]="'username'">
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="form-group">
+              <input type="text" id="password" class="form-control" placeholder="Password" [formControlName]="'password'">
+              <div class="small-links d-flex justify-content-end">
+                <a href="#">Forgot Password?</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ----------------Buttons---------------- -->
+        <div class="row">
+          <div class="col-12 button">
+            <button class="btn btn-primary mr-2" type="submit" [disabled]="signInForm.invalid">Submit</button>
+            <!-- <button class="btn btn-danger" type="button" (click)="onReset()">Reset</button> -->
+          </div>
+        </div>
+
+        <!-- ----------------Singup?---------------- -->
+        <div class="row">
+          <div class="col-12 button mt-4">
+            <div class="small-links">
+              <a href="#">Sign Up</a>
+            </div>
+          </div>
+        </div>
+
+
+      </form>
     </div>
-
   </div>
 </section>
+Hello
