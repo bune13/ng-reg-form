@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map, delay } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { map } from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -37,6 +38,13 @@ export class ApiService {
         (error)=>{console.log('There was an error: ', error)},
         ()=>{}
       );
+  }
+
+  onCheckEmailTaken(email:string):Observable<any>{
+    console.log('INTO')
+    return this.httpClient.post(`${this.api_url}preemailvalidation`, email, httpOptions)
+      .pipe(delay(2000))
+      .pipe(map(res=>res))
   }
 
 }

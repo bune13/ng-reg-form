@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ApiService } from '../shared/api.service';
+import { map } from '../../../node_modules/rxjs/operators';
 
 @Component({
   selector: 'app-signup',
@@ -42,7 +43,7 @@ export class SignupComponent implements OnInit {
       'last_name': new FormControl(null, Validators.required),
       'business_name': new FormControl(null, Validators.required),
       'phone': new FormControl(null, [Validators.required, Validators.pattern(/^[1-9]+[0-9*$]+\d/)]),
-      'email': new FormControl(null, [Validators.required, Validators.email], this.checkEmailValidation.bind(this)),
+      'email': new FormControl(null, [Validators.required, Validators.email], this.checkNewEmailValidation.bind(this)),
       'address': new FormControl(null, Validators.required),
       'city': new FormControl(null, Validators.required),
       'state': new FormControl(null, Validators.required),
@@ -51,24 +52,13 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  checkEmailValidation(control:FormControl): Promise<any>| Observable<any>{
-    const promise = new Promise<any>(
-      (resolve, reject)=>{
-        console.log(control)
-        setTimeout(()=>{
-          this.apiService.onPreRegEmailVPost(control.value);
-          console.log("#############",this.apiService.validEmail)
-          if(this.apiService.validEmail){
-            resolve({'emailIsForbidden':true})
-            // this.apiService.validEmail = null
-          }else{
-            resolve(null);
-            // this.apiService.validEmail = null
-          }
-        },2000);        
-      }
-    )
-    return promise;
+  checkNewEmailValidation(control:FormControl){
+    return this.apiService.onCheckEmailTaken(control.value)
+      .pipe(map(
+        (res)=>{
+          return res == 1 ? {'emailIsForbidden':true} :  null;
+        }
+      ))
   }
 
   
