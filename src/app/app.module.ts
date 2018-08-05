@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule, AlertModule, CollapseModule  } from 'ngx-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -16,7 +15,7 @@ import { HeaderComponent } from './header/header.component';
     AppComponent,
     SigninComponent,
     SignupComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,6 +23,7 @@ import { HeaderComponent } from './header/header.component';
     HttpClientModule,
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
+    AlertModule.forRoot(),
     AppRoutingModule,
   ],
   providers: [],

@@ -118,7 +118,7 @@
                 <div class="invalid-feedback" [ngClass]="{'display-validation': regForm.get('email').invalid && regForm.get('email').touched && !regForm.get('email').errors.emailIsForbidden}">
                   This field is required.
                 </div>
-                <div class="valid-feedback" [ngClass]="{'display-validation': regForm.get('email').pending}">
+                <div class="waiting-feedback" [ngClass]="{'display-validation': regForm.get('email').pending}">
                   Checking....
                 </div>
                 <div class="invalid-feedback" [ngClass]="{'display-validation': regForm.get('email').invalid && regForm.get('email').dirty && regForm.get('email').errors.emailIsForbidden}">
@@ -212,6 +212,13 @@
             </div>
 
           </div>
+
+          <!-- ----------------Success Alert---------------- -->
+          <alert type="success" *ngIf="alertAwake">
+            <h4 class="alert-heading">Well done!</h4>
+            <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+            <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+          </alert>
           
           <!-- ----------------Buttons---------------- -->
           <div class="row my-4">

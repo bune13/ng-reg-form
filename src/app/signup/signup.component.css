@@ -9,11 +9,26 @@ input.ng-valid {
 }
 
 input.ng-dirty.ng-invalid,
-  input.ng-touched.ng-invalid {
+input.ng-touched.ng-invalid {
   border: 1px solid red;
   /* red */
 }
 
-.display-validation{
+.waiting-feedback{
+  display: none;
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #203bd3;
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.display-validation {
   display: block;
 }

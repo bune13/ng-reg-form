@@ -32,6 +32,7 @@ export class ApiService {
         (result)=>{
           console.log("onPreRegValidation successfully posted, result: ", result);
           this.validEmail = <number>result;
+          console.log("@@@@@@@@@@@@@@@@@@",this.validEmail)
         },
         (error)=>{console.log('There was an error: ', error)},
         ()=>{}

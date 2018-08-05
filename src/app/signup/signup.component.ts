@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ApiService } from '../shared/api.service';
-import { componentFactoryName } from '../../../node_modules/@angular/compiler';
 
 @Component({
   selector: 'app-signup',
@@ -11,25 +11,32 @@ import { componentFactoryName } from '../../../node_modules/@angular/compiler';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  regForm:FormGroup
+  regForm:FormGroup;
+  alertAwake:boolean = false;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private router:Router) { }
 
   onSubmit(){
     if(this.regForm.valid){
       console.log(this.regForm.value);
       console.log(this.regForm);
+      this.alertAwake = true;
       this.apiService.onRegPost(this.regForm.value);
-      this.onReset();
+      setTimeout((router: Router) => {
+        this.router.navigate(['/signin']);
+      }, 4000);
+      this.regForm.reset();
     }
   }
 
   onReset(){
+    this.alertAwake = false;
     this.regForm.reset();
   }
 
 
   ngOnInit(){
+    this.alertAwake = false;
     this.regForm = new FormGroup({
       'first_name': new FormControl(null, Validators.required),
       'last_name': new FormControl(null, Validators.required),
@@ -50,12 +57,15 @@ export class SignupComponent implements OnInit {
         console.log(control)
         setTimeout(()=>{
           this.apiService.onPreRegEmailVPost(control.value);
+          console.log("#############",this.apiService.validEmail)
           if(this.apiService.validEmail){
             resolve({'emailIsForbidden':true})
+            // this.apiService.validEmail = null
           }else{
             resolve(null);
+            // this.apiService.validEmail = null
           }
-        },3000);        
+        },2000);        
       }
     )
     return promise;
