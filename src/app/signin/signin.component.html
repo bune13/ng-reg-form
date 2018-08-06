@@ -2,7 +2,7 @@
   <div class="header-text-box d-flex justify-content-center align-items-center">
     <div class="col-10 col-md-6 col-lg-4">
 
-      <form [formGroup]="signInForm" class="form-box">
+      <form [formGroup]="signInForm" class="form-box" (ngSubmit)="onLogin()">
 
         <!-- ----------------Inputs---------------- -->
         <div class="row">
@@ -31,7 +31,7 @@
         <!-- ----------------Buttons---------------- -->
         <div class="row">
           <div class="col-12 button">
-            <button class="btn btn-primary mr-2" type="submit" [disabled]="signInForm.invalid">Submit</button>
+            <button class="btn btn-primary mr-2" type="submit" [disabled]="signInForm.invalid">Login</button>
             <!-- <button class="btn btn-danger" type="button" (click)="onReset()">Reset</button> -->
           </div>
         </div>

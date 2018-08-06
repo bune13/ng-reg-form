@@ -12,6 +12,15 @@ export class SigninComponent implements OnInit {
 
   constructor(private apiService:ApiService) { }
 
+  onLogin(){
+    if(this.signInForm.valid){
+      console.log(this.signInForm.value);
+      console.log(this.signInForm);
+      this.apiService.checkUserLogin(this.signInForm.value);
+      this.signInForm.reset();
+    }
+  }
+
   ngOnInit() {
     this.signInForm = new FormGroup({
       'username': new FormControl(null, Validators.required),

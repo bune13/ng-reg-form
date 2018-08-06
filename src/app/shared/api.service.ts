@@ -27,11 +27,21 @@ export class ApiService {
   }
 
   onCheckEmailTaken(email:string):Observable<any>{
-    console.log('INTO')
+    console.log('INTO Check Email Taken')
     return this.httpClient.post(`${this.api_url}preemailvalidation`, email, httpOptions)
       .pipe(debounceTime(2000))
       .pipe(delay(2000))
       .pipe(map(res=>res))
+  }
+
+  checkUserLogin(value){
+    console.log('INTO Check User Credentials');
+    return this.httpClient.post(`${this.api_url}onuserlogin`, value, httpOptions)
+      .subscribe(
+        (result) => {console.log("onPreRegValidation successfully posted", result);},
+        (error) => console.log('There was an error: ', error),
+        () => {}
+      )
   }
 
 }
