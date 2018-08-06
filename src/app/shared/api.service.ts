@@ -36,7 +36,7 @@ export class ApiService {
 
   checkUserLogin(value){
     console.log('INTO Check User Credentials');
-    return this.httpClient.post(`${this.api_url}onuserlogin`, value, httpOptions)
+    return this.httpClient.post(`${this.api_url}login`, value, httpOptions)
       .subscribe(
         (result) => {console.log("onPreRegValidation successfully posted", result);},
         (error) => console.log('There was an error: ', error),
