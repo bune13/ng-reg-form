@@ -23,8 +23,7 @@
   width: 100%;
   margin-top: .25rem;
   font-size: 80%;
-  color: #203bd3;
-  animation: blinker 1s linear infinite;
+  color: #000000;
 }
 
 .button .btn{

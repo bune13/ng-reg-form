@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import { map, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { ApiService } from '../shared/api.service';
-import { map } from '../../../node_modules/rxjs/operators';
 
 @Component({
   selector: 'app-signup',
@@ -51,6 +51,14 @@ export class SignupComponent implements OnInit {
       'business_type': new FormControl(null, Validators.required),
     });
   }
+
+  // chillPill(control: FormControl) {
+  //   let validatorInput = new Subject();
+  //   let validatorChain= validatorInput
+  //     .pipe(debounceTime(400))
+  //     .pipe(distinctUntilChanged())
+  //     .pipe(map(value => this.checkNewEmailValidation(value))) 
+  // }
 
   checkNewEmailValidation(control:FormControl){
     return this.apiService.onCheckEmailTaken(control.value)

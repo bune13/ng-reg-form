@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, delay } from 'rxjs/operators';
+import { map, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
@@ -26,23 +26,10 @@ export class ApiService {
     );
   }
 
-  onPreRegEmailVPost(email){
-    console.log('IN')
-    return this.httpClient.post(`${this.api_url}preemailvalidation`, email, httpOptions)
-      .subscribe(
-        (result)=>{
-          console.log("onPreRegValidation successfully posted, result: ", result);
-          this.validEmail = <number>result;
-          console.log("@@@@@@@@@@@@@@@@@@",this.validEmail)
-        },
-        (error)=>{console.log('There was an error: ', error)},
-        ()=>{}
-      );
-  }
-
   onCheckEmailTaken(email:string):Observable<any>{
     console.log('INTO')
     return this.httpClient.post(`${this.api_url}preemailvalidation`, email, httpOptions)
+      .pipe(debounceTime(2000))
       .pipe(delay(2000))
       .pipe(map(res=>res))
   }

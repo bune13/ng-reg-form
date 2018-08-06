@@ -19,7 +19,7 @@ input.ng-touched.ng-invalid {
   width: 100%;
   margin-top: .25rem;
   font-size: 80%;
-  color: #203bd3;
+  color: #007bff;
   animation: blinker 1s linear infinite;
 }
 
