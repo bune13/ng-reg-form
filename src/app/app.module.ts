@@ -10,6 +10,7 @@ import { SignupComponent } from './signup/signup.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     SignupComponent,
     HeaderComponent,
     ErrorPageComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
