@@ -4,8 +4,8 @@ import uuid
 import pymongo
 import datetime
 from flask_cors import CORS
-from Crypto.Hash import SHA256
-# from flask.ext.api import status
+#from Crypto.Hash import SHA256
+from flask_restful  import Api
 from connection.connection_mongo import conection_admin_db,conection_user_db
 con = pymongo.MongoClient()
 collection = con.test
