@@ -41,3 +41,7 @@ Thumbs.db
 #grunt files
 /src/assets/css
 /src/assets/js
+#python
+/python/venv
+/python/*.pyc
+/python/*/*.pyc
