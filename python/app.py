@@ -69,5 +69,19 @@ def prelogin():
         # return HTTP_202_ACCEPTED
         return "0"
 
+@app.route('/onuserlogin', methods=["POST"])
+def onlogin():
+#    print dir(request)   
+    print "############# On User Login #############"        
+    print request.data
+    d = request.data
+    print d["password"]
+    # hash = SHA256.new(d["password"]).hexdigest()
+    print "-----------------------------------------"
+    # print hash
+
+    return "0"
+
+
 if __name__ == '__main__':
    app.run(debug = True)
