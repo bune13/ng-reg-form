@@ -27,7 +27,7 @@ def checkusername(value):
 
 print "**************** On Pre Email Validation ****************"
 @app.route('/register', methods=["GET", "POST"])
-def register():
+def registere():
 #    print dir(request)
     if request.method == 'POST':
         print "-------------- On Register --------------"
@@ -47,7 +47,7 @@ def register():
         con.regform.insert_one(d)
         return Response ({"register":'True'},status=200,mimetype='application/json')
     else:
-        return Response ({"register":'False'},status=404,mimetype='application/json')
+        return Response ({"register":'False'},status=300,mimetype='application/json')
 
 @app.route('/preemailvalidation', methods=["POST"])
 def prelogin():
@@ -76,7 +76,7 @@ def onlogin():
     d = json.loads(request.data)
     print d["password"]
     con = conection_admin_db()
-    c =con.find_one(d)
+    c =con.regform.find_one({})
     print c
     
     return "0"
