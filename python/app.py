@@ -33,18 +33,11 @@ def login():
         username = str(uuid.uuid4())[:8]
         cleanusername = checkusername(username)
         d['username'] = cleanusername
+        d['password'] = "123"
+        d['role'] = 'admin'
         # -------------- GENERATING HASH PASSWORD --------------
         userpass = str(uuid.uuid4())[:8]        
-        hash = SHA256.new(userpass).hexdigest()
-        # print "^^^^^^^^^^^^ hash ^^^^^^^^^^^^"
-        # print userpass
-        # print hash
-        d['password'] = hash
         d['createdAt'] = datetime.datetime.now()
-        # d['username'] = "aaa"
-        # d['password'] = "aaa"
-        # print "^^^^^^^^^^^^ with username and password ^^^^^^^^^^^^"
-        print d
         con = conection_admin_db()
         con.regform.insert_one(d)
         return "0"
@@ -57,8 +50,9 @@ def prelogin():
     print "############# On Pre Email Validation #############"        
     print request.data
     d = request.data
-    #print type(d)        
-    f = collection.regform.find_one({'email': d})
+    #print type(d)
+    con = conection_admin_db()        
+    f = con.regform.find_one({'email': d})
     print f
     # print type(f)
     if f:
@@ -74,12 +68,11 @@ def onlogin():
 #    print dir(request)   
     print "############# On User Login #############"        
     print request.data
-    d = request.data
+    d = json.loads(request.data)
     print d["password"]
-    # hash = SHA256.new(d["password"]).hexdigest()
-    print "-----------------------------------------"
-    # print hash
-
+    con = conection_admin_db()
+    c =con.find_one(d)
+    
     return "0"
 
 
