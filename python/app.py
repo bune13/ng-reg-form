@@ -6,7 +6,7 @@ import datetime
 from flask_cors import CORS
 from Crypto.Hash import SHA256
 # from flask.ext.api import status
-
+from connection.connection_mongo import conection_admin_db,conection_user_db
 con = pymongo.MongoClient()
 collection = con.test
 app = Flask(__name__)
@@ -44,8 +44,8 @@ def login():
         # d['password'] = "aaa"
         # print "^^^^^^^^^^^^ with username and password ^^^^^^^^^^^^"
         print d
-        
-        collection.regform.insert_one(d)
+        con = conection_admin_db
+        con.regform.insert_one(d)
         return "0"
     else:
         return "1"
