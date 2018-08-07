@@ -10,6 +10,10 @@ import { Router } from '@angular/router';
 })
 export class SigninComponent implements OnInit {
   signInForm:FormGroup
+  forgetPassword:FormGroup
+  flip:Boolean
+  resetMailSend:Boolean
+ 
 
   constructor(private apiService:ApiService, private router:Router) { }
 
@@ -21,13 +25,29 @@ export class SigninComponent implements OnInit {
       this.apiService.onSubmitButton();
       this.router.navigate(['/admin']);
       this.signInForm.reset();
+      
+    }
+  }
+
+  doFlip(){
+    this.flip=!this.flip;
+  }
+
+  resetPassword(){
+    if(this.forgetPassword.valid){
+console.log('reset your password yoooooo');
+this.resetMailSend=true;
     }
   }
 
   ngOnInit() {
+    this.flip=false;
     this.signInForm = new FormGroup({
       'username': new FormControl(null, Validators.required),
       'password': new FormControl(null, Validators.required),
+    });
+    this.forgetPassword = new FormGroup({
+      'email': new FormControl(null, [Validators.required, Validators.email]),
     });
   }
 
