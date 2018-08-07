@@ -7,8 +7,8 @@ from flask_cors import CORS
 from flask import Response
 #from Crypto.Hash import SHA256
 # from flask.ext.api import status
-from flask_restful import Resource, Api
-from flask_restful  import Api
+# from flask_restful import Resource, Api
+# from flask_restful  import Api
 from connection.connection_mongo import conection_admin_db,conection_user_db
 con = pymongo.MongoClient()
 collection = con.test
@@ -45,9 +45,9 @@ def registere():
         d['createdAt'] = datetime.datetime.now()
         con = conection_admin_db()
         con.regform.insert_one(d)
-        return Response ({"register":'True'},status=200,mimetype='application/json')
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
     else:
-        return Response ({"register":'False'},status=300,mimetype='application/json')
+        return json.dumps({'success':False}), 404, {'ContentType':'application/json'}
 
 @app.route('/preemailvalidation', methods=["POST"])
 def prelogin():
