@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { FooterComponent } from './footer/footer.component';
+import { AdminHomeComponent } from './auth/admin/admin-home/admin-home.component';
+import { AdminComponent } from './auth/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { FooterComponent } from './footer/footer.component';
     HeaderComponent,
     ErrorPageComponent,
     FooterComponent,
+    AdminHomeComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
