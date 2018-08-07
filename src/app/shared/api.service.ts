@@ -43,7 +43,10 @@ export class ApiService{
         }
       },
       (error)=>{
-        this.errorAlert = true; 
+        this.errorAlert = true;
+        setTimeout(() => {
+          this.errorAlert = false;
+        }, 5000);
         console.log(error)
       }
   )
@@ -58,7 +61,6 @@ export class ApiService{
   onLogoutService(){
     this.router.navigate(['/loggedout']);
     this.token = null;
-    console.log("##########################")
     
   }
 

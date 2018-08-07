@@ -21,7 +21,7 @@ module.exports = function (grunt) {
                 expand: true,
                 cwd: './',
                 flatten: true,
-                src: ['node_modules/bootstrap/dist/js/bootstrap.min.js'],
+                src: ['node_modules/bootstrap/dist/js/bootstrap.min.js', 'node_modules/chart.js/src/chart.js', 'node_modules/chart.js/dist/Chart.bundle.js'],
                 dest: 'src/assets/js',
             },
             css: {

@@ -4,6 +4,7 @@ import { BsDropdownModule, AlertModule, CollapseModule  } from 'ngx-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './shared/auth-guard.service';
+import { ChartsModule } from 'ng2-charts';
 // import { ApiService } from './shared/api.service';
 
 import { AppComponent } from './app.component';
@@ -36,6 +37,7 @@ import { LoggedOutComponent } from './logged-out/logged-out.component';
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
     AlertModule.forRoot(),
+    ChartsModule,
     AppRoutingModule,
   ],
   providers: [AuthGuard],

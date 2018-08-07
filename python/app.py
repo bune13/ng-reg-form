@@ -112,7 +112,7 @@ def onlogin():
     if c:
         return json.dumps({'Found':True, 'access_token': access_token,'refresh_token': refresh_token}), 200, {'ContentType':'application/json'}
     else:
-        return json.dumps({'Found':False, 'access_token': null,'refresh_token': null}), 404, {'ContentType':'application/json'}
+        return json.dumps({'Found':False}), 404, {'ContentType':'application/json'}
 
 
 # -------------- FOR Forget Password --------------
