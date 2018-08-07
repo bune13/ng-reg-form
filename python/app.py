@@ -74,11 +74,17 @@ def onlogin():
     print request.data
     d = json.loads(request.data)
     print d["password"]
+    print d["username"]
+    psw = d["password"]
+    uname = d["username"]
     con = conection_admin_db()
-    c =con.regform.find_one({})
+    c =con.regform.find_one({'username':uname,'password':psw})
     print c
+    if c:
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+    else:
+        return json.dumps({'success':False}), 404, {'ContentType':'application/json'}
     
-    return "0"
 
 
 
