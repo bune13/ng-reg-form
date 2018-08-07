@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -12,13 +13,17 @@ export class SigninComponent implements OnInit {
   forgetPassword:FormGroup
   flip:Boolean
   resetMailSend:Boolean
-  constructor(private apiService:ApiService) { }
+ 
+
+  constructor(private apiService:ApiService, private router:Router) { }
 
   onLogin(){
     if(this.signInForm.valid){
       console.log(this.signInForm.value);
       console.log(this.signInForm);
-      this.apiService.checkUserLogin(this.signInForm.value);
+      // this.apiService.checkUserLogin(this.signInForm.value);
+      this.apiService.onSubmitButton();
+      this.router.navigate(['/admin']);
       this.signInForm.reset();
       
     }

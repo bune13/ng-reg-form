@@ -44,4 +44,22 @@ export class ApiService {
       )
   }
 
+
+  // ---------------------- FAKE AUTHENTICATION w/o tokens -----------------
+  public isLoggedIn:boolean;
+
+  onSubmitButton(){
+    this.isLoggedIn = true;
+    console.log(this.isLoggedIn)
+  }
+
+  onLogoutButton(){
+    this.isLoggedIn =false;
+  }
+
+  isAuthenticated(){
+    console.log("-------------isAuthenticated-------------")
+    return this.isLoggedIn;
+  }
+
 }
