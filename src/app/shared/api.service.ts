@@ -39,7 +39,7 @@ export class ApiService{
         if(result['Found'] && result['access_token'] !== null){
           console.log(result);
           this.router.navigate(['/admin']); 
-          this.token = result['access_token'];            
+          this.token = result['access_token'];
         }
       },
       (error)=>{

@@ -39,7 +39,7 @@ module.exports = function (grunt) {
             },
             dev: {
                 files: {
-                    "src/styles.css": "src/assets/scss/style.scss"
+                    "src/assets/css/styles.css": "src/assets/scss/style.scss"
                 }
             }
         }

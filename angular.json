@@ -23,8 +23,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/css/bootstrap.min.css",
-              "src/styles.css"
+              "src/assets/css/styles.css",
+              "src/styles.css",
+              "src/assets/css/bootstrap.min.css"
             ],
             "scripts": [
             ]
