@@ -7,6 +7,7 @@ import { ErrorPageComponent } from "./error-page/error-page.component";
 import { AdminComponent } from "./auth/admin/admin.component";
 import { AdminHomeComponent } from "./auth/admin/admin-home/admin-home.component";
 import { AuthGuard } from "./shared/auth-guard.service";
+import { LoggedOutComponent } from "./logged-out/logged-out.component";
 
 
 const appRouting:Routes = [
@@ -16,6 +17,7 @@ const appRouting:Routes = [
     {path:'admin', canActivate:[AuthGuard], component: AdminComponent, children:[
         {path:'', component: AdminHomeComponent},
     ]},
+    {path:'loggedout', component: LoggedOutComponent},
     {path:'error-page', component: ErrorPageComponent, data:{message:'Page Not Found'}},
     {path:'**', redirectTo:'/error-page', pathMatch: 'full'},
 ]

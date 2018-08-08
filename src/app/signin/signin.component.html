@@ -36,7 +36,7 @@
               </div>
 
               <!--------------------Alert------------------------>
-              <div class="errorAlert" *ngIf="errorAlert">
+              <div class="errorAlert" *ngIf="apiService.errorAlert">
                 <alert type="danger">
                   <p>Invalid Username or Password. Please try again</p>
                 </alert>

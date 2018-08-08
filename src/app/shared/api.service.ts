@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -12,9 +12,11 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class ApiService{
   api_url:string="http://127.0.0.1:5000/";
   validEmail:number;
+  token:string = null;
+  errorAlert:boolean = false;
 
   constructor(private httpClient:HttpClient, private router:Router) { }
 
@@ -33,11 +35,33 @@ export class ApiService {
   checkUserLogin(value){
     console.log('INTO Check User Credentials');
     return this.httpClient.post(`${this.api_url}login`, value, httpOptions)
+      .subscribe(
+        (result)=>{
+          if(result['Found'] && result['access_token'] !== null){
+            console.log(result);
+            this.router.navigate(['/admin']); 
+            this.token = result['access_token'];            
+          }
+        },
+        (error)=>{
+          this.errorAlert = true; 
+          console.log(error)
+        }
+    )
   }
 
   onForgetPassword(value){
     console.log('Into Forget Password');
     return this.httpClient.post(`${this.api_url}forgetpassword`, value, httpOptions)
+  }
+
+  onLogoutService(){
+    this.token = null;
+    this.router.navigate[('/loggedout')];
+  }
+
+  isAuthenticatedService(){
+    return this.token != null;
   }
 
 

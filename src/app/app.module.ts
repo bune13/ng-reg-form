@@ -15,6 +15,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { FooterComponent } from './footer/footer.component';
 import { AdminHomeComponent } from './auth/admin/admin-home/admin-home.component';
 import { AdminComponent } from './auth/admin/admin.component';
+import { LoggedOutComponent } from './logged-out/logged-out.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AdminComponent } from './auth/admin/admin.component';
     FooterComponent,
     AdminHomeComponent,
     AdminComponent,
+    LoggedOutComponent,
   ],
   imports: [
     BrowserModule,

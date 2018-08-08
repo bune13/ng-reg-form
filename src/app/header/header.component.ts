@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout(){
-    this.apiService.onLogoutButton();
+    this.apiService.onLogoutService();
   }
 
 }

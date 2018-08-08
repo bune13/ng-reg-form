@@ -31,6 +31,7 @@ mail = Mail(app)
 
 # -------------- JWT Secret Key --------------
 app.config['JWT_SECRET_KEY'] = 'a37e1644f392640ce05cc29fc1c0859ddd56badba6a68d84fa809e14f518b26af13'
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(minutes=60)
 jwt = JWTManager(app)
 
 
@@ -102,8 +103,8 @@ def onlogin():
     psw = d["password"]
     uname = d["username"]
 
-    access_token = create_access_token(identity = d['username'])
-    refresh_token = create_refresh_token(identity = d['username'])
+    access_token = create_access_token(d['username'])
+    refresh_token = create_refresh_token(d['username'])
 
     con = conection_admin_db()
     c =con.regform.find_one({'username':uname,'password':psw})

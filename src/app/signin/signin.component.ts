@@ -15,7 +15,7 @@ export class SigninComponent implements OnInit {
   forgetPassword:FormGroup
   flip:Boolean
   resetMailSend:Boolean
-  errorAlert:boolean = false;
+  
  
 
   constructor(private apiService:ApiService, private router:Router) { }
@@ -24,25 +24,7 @@ export class SigninComponent implements OnInit {
     if(this.signInForm.valid){
       console.log(this.signInForm.value);
       console.log(this.signInForm);
-      let x:Observable<Object>=this.apiService.checkUserLogin(this.signInForm.value);
-      x.subscribe(
-        (result)=>{
-          if(result['Found']){
-            this.router.navigate(['/admin']);
-          }   
-          console.log(result)
-        },
-        (error)=>{
-          this.errorAlert = true;
-          console.log(error)
-        }
-      )
-      x.pipe(map(
-        (res)=>{
-          console.log(res)
-        }
-      ));
-      this.apiService.onSubmitButton();      
+      this.apiService.checkUserLogin(this.signInForm.value)
       this.signInForm.reset();
       
     }
