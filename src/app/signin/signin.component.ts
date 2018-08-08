@@ -54,11 +54,15 @@ export class SigninComponent implements OnInit {
 
   resetPassword(){
     if(this.forgetPassword.valid){
-      console.log('reset your password yoooooo');
+      console.log('reset your password');
       this.resetMailSend=true;
       this.apiService.onForgetPassword(this.forgetPassword.value).subscribe(
         (result)=>{
-          console.log(result)
+          console.log(result)          
+          // setTimeout(() => {
+            this.resetMailSend = false;
+            this.doFlip();
+          // }, 3000);
         },
         (error)=>{
           console.log(error)

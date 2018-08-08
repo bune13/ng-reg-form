@@ -213,6 +213,11 @@
 
           </div>
 
+
+          <!-- ----------------Info Alert---------------- -->
+          <alert type="info" *ngIf="waitAlert">
+            <span>Processing . . .   Please wait</span>
+          </alert>
           <!-- ----------------Success Alert---------------- -->
           <alert type="success" *ngIf="okayAlert">
             <h4 class="alert-heading">Well done!</h4>

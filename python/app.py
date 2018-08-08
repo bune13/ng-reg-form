@@ -10,21 +10,28 @@ from flask import Response
 # from flask.ext.api import status
 # from flask_restful import Resource, Api
 # from flask_restful  import Api
+from flask_jwt_extended import (JWTManager, create_access_token,
+                                create_refresh_token, jwt_required,
+                                jwt_refresh_token_required, get_jwt_identity,
+                                get_raw_jwt)
 from connection.connection_mongo import conection_admin_db,conection_user_db
 con = pymongo.MongoClient()
 collection = con.test
 app = Flask(__name__)
 CORS(app)
 
-# -------------- Email Configuration --------------
-def configMail():
-    app.config['MAIL_SERVER'] = 'smtp.mail.yahoo.com'
-    app.config['MAIL_PORT'] = 587
-    app.config['MAIL_USERNAME'] = 'test.dash@yahoo.com'
-    app.config['MAIL_PASSWORD'] = 'exponentia'
-    app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USE_SSL'] = False
-    mail = Mail(app)
+# -------------- MAIL CONFIGURATION --------------
+app.config['MAIL_SERVER'] = 'smtp.mail.yahoo.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = 'test.dash@yahoo.com'
+app.config['MAIL_PASSWORD'] = 'exponentia'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+mail = Mail(app)
+
+# -------------- JWT Secret Key --------------
+app.config['JWT_SECRET_KEY'] = 'a37e1644f392640ce05cc29fc1c0859ddd56badba6a68d84fa809e14f518b26af13'
+jwt = JWTManager(app)
 
 
 # -------------- TO CHECK IF USERID EXISTS --------------
@@ -53,16 +60,14 @@ def register():
         d['db_name'] = d['business_name'].replace(' ','')
 
         # -------------- GENERATING RANDOM PASSWORD --------------
-        userpass = str(uuid.uuid4())[:8]        
+        userpass = str(uuid.uuid4())[:8]
         d['createdAt'] = datetime.datetime.now()
         con = conection_admin_db()
         con.regform.insert_one(d)
-        configMail() #config
         msg = Message('Welcome', sender = 'test.dash@yahoo.com', recipients = [d['email']])
         print d
         msg.body = "Hello "+str(d['first_name'])+" "+str(d['last_name'])+" Your Id "+str(d['username'])+" and Password"+str(d['password'])
         print msg,type(msg.body)
-        #print help(mail.send)
         mail.send(msg)
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
     else:
@@ -96,13 +101,17 @@ def onlogin():
     print d["username"]
     psw = d["password"]
     uname = d["username"]
+
+    access_token = create_access_token(identity = d['username'])
+    refresh_token = create_refresh_token(identity = d['username'])
+
     con = conection_admin_db()
     c =con.regform.find_one({'username':uname,'password':psw})
     print c
     if c:
-        return json.dumps({'Found':True}), 200, {'ContentType':'application/json'}
+        return json.dumps({'Found':True, 'access_token': access_token,'refresh_token': refresh_token}), 200, {'ContentType':'application/json'}
     else:
-        return json.dumps({'Found':False}), 404, {'ContentType':'application/json'}
+        return json.dumps({'Found':False, 'access_token': null,'refresh_token': null}), 404, {'ContentType':'application/json'}
 
 
 # -------------- FOR Forget Password --------------
@@ -117,17 +126,15 @@ def onforgetPassword():
     con = conection_admin_db()
     c =con.regform.find_one({'email':email})
     if c:
-        configMail() #config
         msg = Message('Your New Password', sender = 'test.dash@yahoo.com', recipients = [d['email']])
         print d
-        msg.body = "Hello"
-        print msg,type(msg.body)
-        #print help(mail.send)
+        msg.body = "Hello,"
+        msg.html = "<br>Your new password is ..... generate new password"
+        print msg,type(msg)
         mail.send(msg)
         return json.dumps({'Found':True}), 200, {'ContentType':'application/json'}
     else:
         return json.dumps({'Found':False}), 404, {'ContentType':'application/json'}
-
 
 
 

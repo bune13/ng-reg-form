@@ -13,6 +13,7 @@ import { ApiService } from '../shared/api.service';
 export class SignupComponent implements OnInit {
   regForm:FormGroup;
   okayAlert:boolean = false;
+  waitAlert:boolean = false;
   errorAlert:boolean = false;
 
   constructor(private apiService: ApiService, private router:Router) { }
@@ -20,12 +21,14 @@ export class SignupComponent implements OnInit {
   onSubmit(){
     if(this.regForm.valid){
       // console.log(this.regForm.value);
-      // console.log(this.regForm);  
-      this.regForm.reset();    
+      // console.log(this.regForm);
+      this.waitAlert = true;          
       this.apiService.onRegPost(this.regForm.value).subscribe(
         (result) => {
           console.log("onPreRegValidation successfully posted", result);
           this.okayAlert = true;
+          this.waitAlert = false;
+          this.regForm.reset();
           setTimeout((router: Router) => {
             this.router.navigate(['/signin']);
           }, 7000);          
@@ -33,6 +36,7 @@ export class SignupComponent implements OnInit {
         (error) => {
           console.log('There was an error: ', error);
           this.errorAlert = true;
+          this.waitAlert = false;
         },
         () => {}
       );
