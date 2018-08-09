@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request
+from flask import Flask, redirect, url_for, request, jsonify, make_response
 import json
 import uuid
 import pymongo
@@ -7,9 +7,7 @@ from flask_mail import Mail, Message
 from flask_cors import CORS
 from flask import Response
 #from Crypto.Hash import SHA256
-# from flask.ext.api import status
 # from flask_restful import Resource, Api
-# from flask_restful  import Api
 from flask_jwt_extended import (JWTManager, create_access_token,
                                 create_refresh_token, jwt_required,
                                 jwt_refresh_token_required, get_jwt_identity,
@@ -31,8 +29,8 @@ mail = Mail(app)
 
 # -------------- JWT Secret Key --------------
 app.config['JWT_SECRET_KEY'] = 'a37e1644f392640ce05cc29fc1c0859ddd56badba6a68d84fa809e14f518b26af13'
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(minutes=60)
-app.config['JWT_HEADER_NAME'] = 'Meow'
+# app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(minutes=60)
+# app.config['JWT_HEADER_NAME'] = 'Meow'
 jwt = JWTManager(app)
 print jwt
 
@@ -105,16 +103,25 @@ def onlogin():
     psw = d["password"]
     uname = d["username"]
 
-    access_token = create_access_token(d['username'])
-    refresh_token = create_refresh_token(d['username'])
+    access_token = create_access_token(identity=d['username'])
+    refresh_token = create_refresh_token(identity=d['username'])
 
     con = conection_admin_db()
     c =con.regform.find_one({'username':uname,'password':psw})
     print c
     if c:
-        return json.dumps({'Found':True, 'access_token': access_token,'refresh_token': refresh_token}), 200, {'ContentType':'application/json'}
+        return jsonify({'Found':True, 'access_token': access_token,'refresh_token': refresh_token}), 200
     else:
         return json.dumps({'Found':False}), 404, {'ContentType':'application/json'}
+
+@app.route('/checkprotected', methods=['POST'])
+@jwt_required
+def protected():
+    print "########### inside "
+    ret = {
+        'current_identity': get_jwt_identity(),  # test
+    }
+    return json.dumps(ret), 200 
 
 
 # -------------- FOR Forget Password --------------
@@ -138,16 +145,6 @@ def onforgetPassword():
         return json.dumps({'Found':True}), 200, {'ContentType':'application/json'}
     else:
         return json.dumps({'Found':False}), 404, {'ContentType':'application/json'}
-
-@app.route('/checkprotected', methods=['GET'])
-@jwt_required
-def protected():
-    ret = {
-        'current_identity': get_jwt_identity(),  # test
-    }
-    return json.dumps(ret), 200
-
-
 
 
 if __name__ == '__main__':
