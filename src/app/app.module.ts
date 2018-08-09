@@ -17,6 +17,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AdminHomeComponent } from './auth/admin/admin-home/admin-home.component';
 import { AdminComponent } from './auth/admin/admin.component';
 import { LoggedOutComponent } from './logged-out/logged-out.component';
+import { AdminAgentMasterComponent } from './auth/admin/admin-agent-master/admin-agent-master.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { LoggedOutComponent } from './logged-out/logged-out.component';
     AdminHomeComponent,
     AdminComponent,
     LoggedOutComponent,
+    AdminAgentMasterComponent,
   ],
   imports: [
     BrowserModule,

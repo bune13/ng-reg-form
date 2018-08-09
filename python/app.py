@@ -32,7 +32,9 @@ mail = Mail(app)
 # -------------- JWT Secret Key --------------
 app.config['JWT_SECRET_KEY'] = 'a37e1644f392640ce05cc29fc1c0859ddd56badba6a68d84fa809e14f518b26af13'
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(minutes=60)
+app.config['JWT_HEADER_NAME'] = 'Meow'
 jwt = JWTManager(app)
+print jwt
 
 
 # -------------- TO CHECK IF USERID EXISTS --------------
@@ -136,6 +138,15 @@ def onforgetPassword():
         return json.dumps({'Found':True}), 200, {'ContentType':'application/json'}
     else:
         return json.dumps({'Found':False}), 404, {'ContentType':'application/json'}
+
+@app.route('/checkprotected', methods=['GET'])
+@jwt_required
+def protected():
+    ret = {
+        'current_identity': get_jwt_identity(),  # test
+    }
+    return json.dumps(ret), 200
+
 
 
 

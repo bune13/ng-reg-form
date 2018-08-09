@@ -13,10 +13,10 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ApiService{
-  api_url:string="http://127.0.0.1:5000/";
-  validEmail:number;
-  token:string = null;
-  errorAlert:boolean = false;
+  api_url:string="http://127.0.0.1:5000/"
+  validEmail:number
+  token:string = null
+  errorAlert:boolean = false
 
   constructor(private httpClient:HttpClient, private router:Router) { }
 
@@ -37,35 +37,52 @@ export class ApiService{
     return this.httpClient.post(`${this.api_url}login`, value, httpOptions).subscribe(
       (result)=>{
         if(result['Found'] && result['access_token'] !== null){
-          console.log(result);
-          this.router.navigate(['/admin']); 
-          this.token = result['access_token'];
+          console.log(result)
+          this.router.navigate(['/admin'])
+          this.token = result['access_token']
+          this.setSession(this.token)
         }
       },
       (error)=>{
-        this.errorAlert = true;
+        this.errorAlert = true
         setTimeout(() => {
-          this.errorAlert = false;
+          this.errorAlert = false
         }, 5000);
         console.log(error)
       }
-  )
-      
+    )
+  }
+
+  onCheckAuth(){
+    console.log('on check')
+    return this.httpClient.post(`${this.api_url}checkprotected`, null, httpOptions).subscribe(
+      (result)=>{
+          console.log(result)
+      },
+      (error)=>{
+        console.log(error)
+      }
+    )
   }
 
   onForgetPassword(value){
-    console.log('Into Forget Password');
+    console.log('Into Forget Password')
     return this.httpClient.post(`${this.api_url}forgetpassword`, value, httpOptions)
+  }
+  
+  private setSession(authResult) {
+    localStorage.setItem('id_token', authResult)
   }
 
   onLogoutService(){
-    this.router.navigate(['/loggedout']);
-    this.token = null;
-    
+    this.router.navigate(['/loggedout'])
+    this.token = null
+    localStorage.removeItem("id_token")
+    console.log("token", this.token)
   }
 
   isAuthenticatedService(){
-    return this.token != null;
+    return this.token != null
   }
 
 }
