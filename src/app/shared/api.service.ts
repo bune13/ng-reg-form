@@ -55,7 +55,7 @@ export class ApiService{
 
   onCheckAuth(){
     console.log('on check')
-    return this.httpClient.post(`${this.api_url}checkprotected`, null, httpOptions).subscribe(
+    return this.httpClient.post(`${this.api_url}checkprotected`, this.token, httpOptions).subscribe(
       (result)=>{
           console.log(result)
       },
@@ -72,6 +72,10 @@ export class ApiService{
   
   private setSession(authResult) {
     localStorage.setItem('id_token', authResult)
+  }
+
+  getToken(){
+    return localStorage.getItem('id_token')
   }
 
   onLogoutService(){

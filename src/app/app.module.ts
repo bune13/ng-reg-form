@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BsDropdownModule, AlertModule, CollapseModule  } from 'ngx-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from './shared/auth-guard.service';
 import { ChartsModule } from 'ng2-charts';
 // import { ApiService } from './shared/api.service';
@@ -18,6 +18,7 @@ import { AdminHomeComponent } from './auth/admin/admin-home/admin-home.component
 import { AdminComponent } from './auth/admin/admin.component';
 import { LoggedOutComponent } from './logged-out/logged-out.component';
 import { AdminAgentMasterComponent } from './auth/admin/admin-agent-master/admin-agent-master.component';
+import { TokenInterceptorService } from './auth/admin/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,13 @@ import { AdminAgentMasterComponent } from './auth/admin/admin-agent-master/admin
     ChartsModule,
     AppRoutingModule,
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
