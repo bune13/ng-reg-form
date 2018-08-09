@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #007bff;">
+<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #007bff;">
   <span class="navbar-brand" style="cursor: pointer" routerLink="/signin" *ngIf="!apiService.isAuthenticatedService()">Cingulariti</span>
   <span class="navbar-brand" style="cursor: pointer" *ngIf="apiService.isAuthenticatedService()">Cingulariti</span>
   <button class="navbar-toggler" type="button" data-toggle="collapse" (click)="isCollapsed = !isCollapsed" data-target="#navbarSupportedContent"
@@ -16,6 +16,9 @@
         <a class="nav-link" style="cursor:pointer" routerLink="/signup">Signup</a>
       </li>
       <ng-template [ngIf]="apiService.isAuthenticatedService()">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" style="cursor:pointer"  [routerLink]="['/admin','agentmaster']">Agent Master</a>
+        </li>
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" style="cursor:pointer" (click)="onLogout()">Logout</a>
         </li>

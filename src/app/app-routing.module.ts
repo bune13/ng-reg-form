@@ -16,8 +16,8 @@ const appRouting:Routes = [
     {path:'signin', component: SigninComponent},
     {path:'signup', component: SignupComponent},
     {path:'admin', canActivate:[AuthGuard], component: AdminComponent, children:[
-        {path:'agentmaster', component: AdminAgentMasterComponent},
         {path:'', component: AdminHomeComponent},
+        {path:'agentmaster', component: AdminAgentMasterComponent},
     ]},
     {path:'loggedout', component: LoggedOutComponent},
     {path:'error-page', component: ErrorPageComponent, data:{message:'Page Not Found'}},
