@@ -6,13 +6,11 @@ import datetime
 from flask_mail import Mail, Message
 from flask_cors import CORS
 from flask import Response
-<<<<<<< HEAD
 from flask import render_template
 # from Crypto.Hash import SHA256
 # from flask.ext.api import status
 # from flask_restful import Resource, Api
 # from flask_restful  import Api
-
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -94,8 +92,9 @@ def register():
         return jsonify({'success':False}), 404
 
 # -------------- VALIDATED EMAIL ASYNC --------------
-@app.route('/', methods=["POST"])
-def confirm(UUID_string):
+
+# @app.route('/', methods=["POST"])
+# def confirm(UUID_string):
     
 @app.route('/emailvalidation', methods=["POST"])
 def prelogin():
