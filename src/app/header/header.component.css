@@ -1,0 +1,7 @@
+.navbar{
+  padding: 0.1rem 1rem;
+}
+.navbar-brand {
+  cursor: pointer;
+  font-size: 1.1rem;
+}

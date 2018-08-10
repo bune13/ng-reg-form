@@ -13,18 +13,18 @@ $break-small: 544px;
   box-sizing: border-box;
 }
 
-body {
+body, html {
   background-color: #fff;
   color: #000;
   font-family: 'Lato', 'Arial', sans-serif;
   font-weight: 300;
-  font-size: 40px;
+  font-size: 16px;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
-  @media screen and (min-width: $break-medium) {
-    font-size: 16px;
+  @media screen and (max-width: $break-medium) {
+    font-size: 15px;
   }
-  @media screen and (min-width: $break-small) {
-    font-size: 5px;
+  @media screen and (max-width: $break-small) {
+    font-size: 14px;
   }
 }

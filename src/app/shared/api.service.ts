@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, delay, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -25,7 +25,7 @@ export class ApiService{
   }
 
   onCheckEmailTaken(email:string):Observable<any>{
-    console.log('INTO Check Email Taken')
+    // console.log('INTO Check Email Taken')
     return this.httpClient.post(`${this.api_url}emailvalidation`, email, httpOptions)
       .pipe(debounceTime(2000))
       .pipe(delay(2000))
@@ -54,7 +54,7 @@ export class ApiService{
   }
 
   onCheckAuth(){
-    console.log('on check')
+    // console.log('on check')
     return this.httpClient.post(`${this.api_url}checkprotected`, this.token, httpOptions).subscribe(
       (result)=>{
           console.log(result)
@@ -66,7 +66,7 @@ export class ApiService{
   }
 
   onForgetPassword(value){
-    console.log('Into Forget Password')
+    // console.log('Into Forget Password')
     return this.httpClient.post(`${this.api_url}forgetpassword`, value, httpOptions)
   }
   
@@ -74,7 +74,7 @@ export class ApiService{
     localStorage.setItem('id_token', authResult)
   }
 
-  getToken(){
+  public getToken(){
     return localStorage.getItem('id_token')
   }
 
@@ -82,7 +82,7 @@ export class ApiService{
     this.router.navigate(['/loggedout'])
     this.token = null
     localStorage.removeItem("id_token")
-    console.log("token", this.token)
+    // console.log("token", this.token)
   }
 
   isAuthenticatedService(){

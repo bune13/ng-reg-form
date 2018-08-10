@@ -70,9 +70,9 @@ def register():
         msg.body = "Hello "+str(d['first_name'])+" "+str(d['last_name'])+" Your Id "+str(d['username'])+" and Password"+str(d['password'])
         print msg,type(msg.body)
         mail.send(msg)
-        return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+        return jsonify({'success':True}), 200
     else:
-        return json.dumps({'success':False}), 404, {'ContentType':'application/json'}
+        return jsonify({'success':False}), 404
 
 # -------------- VALIDATED EMAIL ASYNC --------------
 @app.route('/emailvalidation', methods=["POST"])
@@ -112,8 +112,9 @@ def onlogin():
     if c:
         return jsonify({'Found':True, 'access_token': access_token,'refresh_token': refresh_token}), 200
     else:
-        return json.dumps({'Found':False}), 404, {'ContentType':'application/json'}
+        return jsonify({'Found':False}), 404
 
+# -------------- AUTH ADMIN --------------
 @app.route('/checkprotected', methods=['POST'])
 @jwt_required
 def protected():
@@ -121,7 +122,7 @@ def protected():
     ret = {
         'current_identity': get_jwt_identity(),  # test
     }
-    return json.dumps(ret), 200 
+    return jsonify(ret), 200 
 
 
 # -------------- FOR Forget Password --------------
@@ -142,9 +143,9 @@ def onforgetPassword():
         msg.html = "<br>Your new password is ..... generate new password"
         print msg,type(msg)
         mail.send(msg)
-        return json.dumps({'Found':True}), 200, {'ContentType':'application/json'}
+        return jsonify({'Found':True}), 200
     else:
-        return json.dumps({'Found':False}), 404, {'ContentType':'application/json'}
+        return jsonify({'Found':False}), 404
 
 
 if __name__ == '__main__':

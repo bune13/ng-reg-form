@@ -1,0 +1,75 @@
+<section class="admin-home-dashboard">
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-12 mx-auto">
+  
+          <div class="row">
+            <div class="col-12 col-md-8">
+              <div class="row">
+  
+                <div class="col-12">
+                  <div class="row">
+  
+                    <div class="col-4">
+                      <div class="on-box left-upper-showcase">
+                        Number of agents
+                      </div>
+                    </div>
+  
+                    <div class="col-4">
+                      <div class="on-box left-upper-showcase">
+                        No of live agents
+                      </div>
+                    </div>
+  
+                    <div class="col-4">
+                      <div class="on-box left-upper-showcase">
+                        Total Conversation
+                      </div>
+                    </div>
+  
+                  </div>
+                </div>
+  
+                <div class="col-12 mt-3">
+                  <div class="row">
+  
+                    <div class="col-4">
+                      <div class="on-box left-upper-showcase">
+                        Unique Users
+                      </div>
+                    </div>
+  
+                    <div class="col-4">
+                      <div class="on-box left-upper-showcase">
+                        Likes
+                      </div>
+                    </div>
+  
+                    <div class="col-4">
+                      <div class="on-box left-upper-showcase">
+                        Unlikes
+                      </div>
+                    </div>
+  
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+  
+            <div class="col-12 col-md-4">
+              <div class="on-box donut-chart-right-upper">
+                <canvas baseChart height="99px" width="80px" [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
+                  (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </div>
+          </div>
+  
+  
+        </div>
+      </div>
+    </div>
+  </section>
+  

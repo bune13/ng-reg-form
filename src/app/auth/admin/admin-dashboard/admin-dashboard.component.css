@@ -1,0 +1,38 @@
+.on-box {
+    -webkit-box-shadow: 0px 1px 6px -1px rgba(0, 0, 0, 0.55);
+    -moz-box-shadow: 0px 1px 6px -1px rgba(0, 0, 0, 0.55);
+    box-shadow: 0px 1px 6px -1px rgba(0, 0, 0, 0.55);
+  }
+  
+  .left-upper-showcase {
+    padding: 10px 30px;
+    text-align: center;
+  }
+  
+  .donut-chart-right-upper{
+      padding: 30px;
+  }
+  
+  .left-upper-showcase{
+      height: 200px;
+  }
+  
+  /* Small devices (landscape phones, 544px and up) */
+  @media (min-width: 544px) {  
+   
+  }
+   
+  /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+  @media (min-width: 768px) {  
+   
+  }
+   
+  /* Large devices (desktops, 992px and up) */
+  @media (min-width: 992px) { 
+   
+  }
+   
+  /* Extra large devices (large desktops, 1200px and up) */
+  @media (min-width: 1200px) {  
+      
+  }

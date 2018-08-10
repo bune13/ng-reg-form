@@ -9,6 +9,7 @@ import { AdminHomeComponent } from "./auth/admin/admin-home/admin-home.component
 import { AuthGuard } from "./shared/auth-guard.service";
 import { LoggedOutComponent } from "./logged-out/logged-out.component";
 import { AdminAgentMasterComponent } from "./auth/admin/admin-agent-master/admin-agent-master.component";
+import { AdminDashboardComponent } from "./auth/admin/admin-dashboard/admin-dashboard.component";
 
 
 const appRouting:Routes = [
@@ -17,6 +18,7 @@ const appRouting:Routes = [
     {path:'signup', component: SignupComponent},
     {path:'admin', canActivate:[AuthGuard], component: AdminComponent, children:[
         {path:'', component: AdminHomeComponent},
+        {path:'dashboard', component: AdminDashboardComponent},
         {path:'agentmaster', component: AdminAgentMasterComponent},
     ]},
     {path:'loggedout', component: LoggedOutComponent},
