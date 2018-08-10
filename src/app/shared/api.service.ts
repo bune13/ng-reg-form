@@ -13,8 +13,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ApiService{
-  api_url:string="http://127.0.0.1:5000/"
-  // api_url:string="http://192.168.0.175:5000/"
+  // api_url:string="http://127.0.0.1:5000/"
+  api_url:string="http://192.168.0.175:5000/"
   validEmail:number
   token:string = null
   errorAlert:boolean = false
