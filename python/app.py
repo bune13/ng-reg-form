@@ -121,7 +121,7 @@ def onlogin():
     d = json.loads(request.data)
     print d["password"]
     print d["username"]
-    psw = d["password"]
+    psw = d["password"] 
     uname = d["username"]
 
     access_token = create_access_token(identity=d['username'])
