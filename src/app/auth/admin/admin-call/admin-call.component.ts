@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../admin.service';
 
 @Component({
   selector: 'app-admin-call',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminCallComponent implements OnInit {
 
-  constructor() { }
+  constructor(private adminService:AdminService) { }
 
   ngOnInit() {
+  }
+
+  onDownloadTemplate(){
+    this.adminService
   }
 
 }
