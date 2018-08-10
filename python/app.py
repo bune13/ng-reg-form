@@ -176,8 +176,9 @@ def download_template():
                      attachment_filename='template.csv',
                      as_attachment=True)
 
-@app.route('/upload', methods=["GET"])
+@app.route('/upload', methods=["POST"])
 def upload():
-    pass
+    print request.files[0]
+    print "hello"
 if __name__ == '__main__':
    app.run(debug = True,host='0.0.0.0')
