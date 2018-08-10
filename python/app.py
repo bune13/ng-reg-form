@@ -6,7 +6,7 @@ import datetime
 from flask_mail import Mail, Message
 from flask_cors import CORS
 from flask import Response
-from flask import render_template
+from flask import render_template,send_file
 # from Crypto.Hash import SHA256
 # from flask.ext.api import status
 # from flask_restful import Resource, Api
@@ -178,7 +178,16 @@ def download_template():
 
 @app.route('/upload', methods=["POST"])
 def upload():
-    print request.files[0]
+    print request.file
+    f = request.files['file']  
+
+    #store the file contents as a string
+    fstring = f.read()
+
+    #create list of dictionaries keyed by header row
+    csv_dicts = [{k: v for k, v in row.items()} for row in csv.DictReader(fstring.splitlines(), skipinitialspace=True)]
+
+    print csv_dicts
     print "hello"
 if __name__ == '__main__':
    app.run(debug = True,host='0.0.0.0')
