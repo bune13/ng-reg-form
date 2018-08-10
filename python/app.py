@@ -180,7 +180,7 @@ def download_template():
 @app.route('/upload', methods=["POST"])
 @jwt_required
 def upload():
-    print request.data,"data"
+    print request.data,"data" 
     f= request.files['template.csv']
 
     # f = request.files['data_file']  
