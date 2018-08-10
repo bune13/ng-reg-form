@@ -21,6 +21,7 @@ import { AdminAgentMasterComponent } from './auth/admin/admin-agent-master/admin
 import { TokenInterceptorService } from './auth/admin/token-interceptor.service';
 import { AdminHeaderComponent } from './auth/admin/admin-header/admin-header.component';
 import { AdminDashboardComponent } from './auth/admin/admin-dashboard/admin-dashboard.component';
+import { AdminCallComponent } from './auth/admin/admin-call/admin-call.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AdminDashboardComponent } from './auth/admin/admin-dashboard/admin-dash
     AdminAgentMasterComponent,
     AdminHeaderComponent,
     AdminDashboardComponent,
+    AdminCallComponent,
   ],
   imports: [
     BrowserModule,

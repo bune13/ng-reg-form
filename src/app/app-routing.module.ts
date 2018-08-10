@@ -10,6 +10,7 @@ import { AuthGuard } from "./shared/auth-guard.service";
 import { LoggedOutComponent } from "./logged-out/logged-out.component";
 import { AdminAgentMasterComponent } from "./auth/admin/admin-agent-master/admin-agent-master.component";
 import { AdminDashboardComponent } from "./auth/admin/admin-dashboard/admin-dashboard.component";
+import { AdminCallComponent } from "./auth/admin/admin-call/admin-call.component";
 
 
 const appRouting:Routes = [
@@ -20,6 +21,7 @@ const appRouting:Routes = [
         {path:'', component: AdminHomeComponent},
         {path:'dashboard', component: AdminDashboardComponent},
         {path:'agentmaster', component: AdminAgentMasterComponent},
+        {path:'call', component: AdminCallComponent},
     ]},
     {path:'loggedout', component: LoggedOutComponent},
     {path:'error-page', component: ErrorPageComponent, data:{message:'Page Not Found'}},
