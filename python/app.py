@@ -180,7 +180,8 @@ def download_template():
 @app.route('/upload', methods=["POST"])
 @jwt_required
 def upload():
-    print request.data,"data" 
+    print request.data,"data"
+    # data = json.loads(request.data) 
     f= request.files['template.csv']
 
     # f = request.files['data_file']  
@@ -191,8 +192,9 @@ def upload():
     print fstring
     #create list of dictionaries keyed by header row
     csv_dicts = [{k: v for k, v in row.items()} for row in csv.DictReader(fstring.splitlines(), skipinitialspace=True)]
-    # collection.
-    p protected()
+    d =conection_user_db(request.data)
+    d.local.insert_many(csv_dicts)
+    # p protected()
     print csv_dicts
     print "hello"
 if __name__ == '__main__':
