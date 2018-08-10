@@ -131,7 +131,7 @@ def onlogin():
     c =con.regform.find_one({'username':uname,'password':psw})
     print c
     if c:
-        return jsonify({'Found':True, 'access_token': access_token,'refresh_token': refresh_token}), 200
+        return jsonify({'Found':True,'db':c['db_name'], 'access_token': access_token,'refresh_token': refresh_token}), 200
     else:
         return jsonify({'Found':False}), 404
 
@@ -170,6 +170,7 @@ def onforgetPassword():
 
 
 @app.route('/download_template', methods=["GET"])
+@jwt_required
 def download_template():
     return send_file('E://dev//Genric bot//ng-reg-form//python//assest//Insurance.csv',
                      mimetype='text/csv',
@@ -177,16 +178,21 @@ def download_template():
                      as_attachment=True)
 
 @app.route('/upload', methods=["POST"])
+@jwt_required
 def upload():
-    print request.file
-    f = request.files['file']  
+    print request.data,"data"
+    f= request.files['template.csv']
+
+    # f = request.files['data_file']  
 
     #store the file contents as a string
     fstring = f.read()
-
+    import csv
+    print fstring
     #create list of dictionaries keyed by header row
     csv_dicts = [{k: v for k, v in row.items()} for row in csv.DictReader(fstring.splitlines(), skipinitialspace=True)]
-
+    # collection.
+    p protected()
     print csv_dicts
     print "hello"
 if __name__ == '__main__':
