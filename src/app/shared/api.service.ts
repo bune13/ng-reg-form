@@ -41,6 +41,7 @@ export class ApiService{
           console.log(result)
           this.router.navigate(['/admin'])
           this.token = result['access_token']
+          localStorage.setItem('db', result['db'])
           this.setSession(this.token)
         }
       },

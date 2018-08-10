@@ -33,6 +33,9 @@ export class AdminCallComponent implements OnInit {
   }
 
   upload(files) {
+
+    this.adminService.onUploadFileDB(localStorage.getItem('db'));
+
     console.log("files data",files);
     if (files.length === 0)
       return;
@@ -43,7 +46,7 @@ export class AdminCallComponent implements OnInit {
       formData.append(file.name, file);
 
       console.log("formdata",formData);
-    const uploadReq = new HttpRequest('POST', `http://192.168.0.175:5000/upload`, formData, {
+      const uploadReq = new HttpRequest('POST', `http://192.168.0.175:5000/upload`, formData, {
       reportProgress: true,
     });
 

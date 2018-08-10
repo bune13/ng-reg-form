@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'text/csv', 'Access-Control-Allow-Origin':'*' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*' })
 };
 
 @Injectable({
@@ -29,8 +29,7 @@ export class AdminService {
   //   //   ));
   // }
 
-  onUploadFile(value){
-    console.log("Inside upload");
+  onUploadFileDB(value){
     return this.httpClient.post(`${this.api_url}upload`, value, httpOptions).subscribe(
       (result)=>{
         console.log(result);
