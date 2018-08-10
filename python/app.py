@@ -6,8 +6,16 @@ import datetime
 from flask_mail import Mail, Message
 from flask_cors import CORS
 from flask import Response
-#from Crypto.Hash import SHA256
+<<<<<<< HEAD
+from flask import render_template
+# from Crypto.Hash import SHA256
+# from flask.ext.api import status
 # from flask_restful import Resource, Api
+# from flask_restful  import Api
+
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from flask_jwt_extended import (JWTManager, create_access_token,
                                 create_refresh_token, jwt_required,
                                 jwt_refresh_token_required, get_jwt_identity,
@@ -54,6 +62,10 @@ def register():
         print request.data
         d = json.loads(request.data)
         username = str(uuid.uuid4())[:8]
+        
+        print '*********'
+        print username
+        print '*********'
         cleanusername = checkusername(username)
         d['username'] = cleanusername
         d['password'] = "123"
@@ -62,12 +74,19 @@ def register():
 
         # -------------- GENERATING RANDOM PASSWORD --------------
         userpass = str(uuid.uuid4())[:8]
+        UUID_STRIN = uuid.uuid4()
+        d['UUID'] = UUID_STRIN
         d['createdAt'] = datetime.datetime.now()
         con = conection_admin_db()
         con.regform.insert_one(d)
         msg = Message('Welcome', sender = 'test.dash@yahoo.com', recipients = [d['email']])
         print d
-        msg.body = "Hello "+str(d['first_name'])+" "+str(d['last_name'])+" Your Id "+str(d['username'])+" and Password"+str(d['password'])
+        
+        confirm_url = "http://localhost:4200/"+UUID_STRIN
+        msg.html=render_template('confirm.html', confirm_url=confirm_url)
+        
+
+        #msg.body = html
         print msg,type(msg.body)
         mail.send(msg)
         return jsonify({'success':True}), 200
@@ -75,6 +94,9 @@ def register():
         return jsonify({'success':False}), 404
 
 # -------------- VALIDATED EMAIL ASYNC --------------
+@app.route('/', methods=["POST"])
+def confirm(UUID_string):
+    
 @app.route('/emailvalidation', methods=["POST"])
 def prelogin():
 #    print dir(request)   
