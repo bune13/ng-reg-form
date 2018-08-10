@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'text/csv', 'Access-Control-Allow-Origin':'*' })
 };
 
 @Injectable({
@@ -18,18 +18,29 @@ export class AdminService {
 
   constructor(private httpClient:HttpClient, private router:Router) { }
 
-  downloadTemplate(value){
-    console.log('Downloading Template....');
-    return this.httpClient.post(`${this.api_url}download_template`, value, httpOptions).subscribe(
+  // downloadTemplate(){
+  //   console.log('Downloading Template....');
+  //   return this.httpClient.post(`${this.api_url}download_template`, null, httpOptions).;
+  //   // return  this.httpClient.get(`${this.api_url}`, {observe:'body', responseType:'json'})
+  //   //   .pipe(map(
+  //   //     (data:Object) => {
+  //   //       return data;
+  //   //     }
+  //   //   ));
+  // }
+
+  onUploadFile(value){
+    console.log("Inside upload");
+    return this.httpClient.post(`${this.api_url}upload`, value, httpOptions).subscribe(
       (result)=>{
         console.log(result);
       },
       (error)=>{
         console.log(error);
-      },
-      ()=>{}
+      }
     )
   }
+  
 
 
 }
