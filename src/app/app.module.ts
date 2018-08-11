@@ -49,7 +49,8 @@ import { AdminCallComponent } from './auth/admin/admin-call/admin-call.component
     ChartsModule,
     AppRoutingModule,
   ],
-  providers: [AuthGuard,
+  providers: [
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

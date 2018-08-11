@@ -1,16 +1,17 @@
-<!-- <button class="btn btn-primary" type="button" (click)="onDownloadTemplate()">Download</button> -->
-<a href="http://192.168.0.175:5000/download_template">Hie</a>
+<section class="admin-call-page">
+  <div class="container my-5">
+    <div class="row">
 
-<br>
+      <div class="col-12 mx-auto">
 
-<hr>
+        <p class="download-text">Please download the template <a [href]="downloadApiLink">file</a>.</p>        
+        <!-- <button class="btn btn-primary" type="button" (click)="onDownloadTemplate()http://127.0.0.1:5000/download_template">Download</button> -->
+        <hr>
 
+        <h4>Upload You File</h4><br>
+        <input #file type="file" (change)="upload(file.files)" />
 
-<!-- <h1>Upload new File</h1>
-<form action="http://192.168.0.175:5000/upload" method="post" enctype="multipart/form-data" [formGroup]="regForm" (ngSubmit)="onSubmit()">
-  <input type="file" name="data_file" [formControlName]="'file_name'">
-  <button class="btn btn-primary" type="submit" value="Upload">upload</button>
-  <input type="submit">
-</form> -->
-
-<input #file type="file" multiple (change)="upload(file.files)" />
+      </div>
+    </div>
+  </div>
+</section>

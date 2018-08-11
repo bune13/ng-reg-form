@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark admin-header">
-  <span class="navbar-brand" [routerLink]="['/admin']">Company Name</span>
+  <span class="navbar-brand" [routerLink]="['home']">Company Name</span>
   <button class="navbar-toggler" type="button" data-toggle="collapse" (click)="isCollapsed = !isCollapsed" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -9,15 +9,15 @@
 
     <ul class="navbar-nav ml-auto">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" style="cursor:pointer" [routerLink]="['/admin', 'dashboard']">
+        <a class="nav-link" style="cursor:pointer" [routerLink]="['dashboard']">
           <i class="fa fa-bar-chart"></i>&nbsp;Dashboard</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" style="cursor:pointer" [routerLink]="['/admin','agentmaster']">
+        <a class="nav-link" style="cursor:pointer" [routerLink]="['agentmaster']">
           <i class="fa fa-child"></i>&nbsp;Agent Master</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" style="cursor:pointer" [routerLink]="['/admin','call']">
+        <a class="nav-link" style="cursor:pointer" [routerLink]="['call']">
           <i class="fa fa-phone-square"></i>&nbsp;Call</a>
       </li>
     </ul>

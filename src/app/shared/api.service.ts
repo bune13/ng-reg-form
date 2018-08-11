@@ -13,13 +13,17 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ApiService{
-  // api_url:string="http://127.0.0.1:5000/"
-  api_url:string="http://192.168.0.175:5000/"
+  api_url:string="http://127.0.0.1:5000/"
+  // api_url:string="http://192.168.0.175:5000/"
   validEmail:number
   token:string = null
   errorAlert:boolean = false
 
   constructor(private httpClient:HttpClient, private router:Router) { }
+
+  getMainLink(){
+    return this.api_url
+  }
 
   onRegPost(value){
     return this.httpClient.post(`${this.api_url}register`, value, httpOptions)
@@ -41,7 +45,6 @@ export class ApiService{
           console.log(result)
           this.router.navigate(['/admin'])
           this.token = result['access_token']
-          localStorage.setItem('db', result['db'])
           this.setSession(this.token)
         }
       },

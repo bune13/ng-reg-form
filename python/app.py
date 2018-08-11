@@ -72,6 +72,7 @@ def register():
 
         # -------------- GENERATING RANDOM PASSWORD --------------
         userpass = str(uuid.uuid4())[:8]
+        # -------------- ^^^^^^ NOT SAVING PASSWORD --------------
         UUID_STRIN = uuid.uuid4()
         d['UUID'] = UUID_STRIN
         d['createdAt'] = datetime.datetime.now()
@@ -131,7 +132,7 @@ def onlogin():
     c =con.regform.find_one({'username':uname,'password':psw})
     print c
     if c:
-        return jsonify({'Found':True,'db':c['db_name'], 'access_token': access_token,'refresh_token': refresh_token}), 200
+        return jsonify({'Found':True, 'access_token': access_token,'refresh_token': refresh_token}), 200
     else:
         return jsonify({'Found':False}), 404
 
@@ -170,21 +171,28 @@ def onforgetPassword():
 
 
 @app.route('/download_template', methods=["GET"])
-@jwt_required
 def download_template():
-    return send_file('E://dev//Genric bot//ng-reg-form//python//assest//Insurance.csv',
+    return send_file('D://UDEMY//New folder//angular//ng-reg-form//python//assest//Insurance.csv',
                      mimetype='text/csv',
                      attachment_filename='template.csv',
                      as_attachment=True)
 
+
 @app.route('/upload', methods=["POST"])
 @jwt_required
 def upload():
-    print request.data,"data"
-    # data = json.loads(request.data) 
-    f= request.files['template.csv']
+    # print request.data,"data"
+    tokenUserName = get_jwt_identity()
+    con = conection_admin_db()
+    c = con.regform.find_one({'username':tokenUserName})
+    admin_db_name =  c['db_name']
+    print admin_db_name
 
-    # f = request.files['data_file']  
+
+    # data = json.loads(request.data)
+    f = request.files['template.csv']
+
+    # f = request.files['data_file']
 
     #store the file contents as a string
     fstring = f.read()
@@ -192,10 +200,12 @@ def upload():
     print fstring
     #create list of dictionaries keyed by header row
     csv_dicts = [{k: v for k, v in row.items()} for row in csv.DictReader(fstring.splitlines(), skipinitialspace=True)]
-    d =conection_user_db(request.data)
+    d =conection_user_db(admin_db_name)
     d.local.insert_many(csv_dicts)
     # p protected()
     print csv_dicts
     print "hello"
+
+
 if __name__ == '__main__':
    app.run(debug = True,host='0.0.0.0')

@@ -9,32 +9,25 @@ import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/c
   styleUrls: ['./admin-call.component.css']
 })
 export class AdminCallComponent implements OnInit {
-  regForm:FormGroup;
   public progress: number;
   public message: string;
 
   constructor(private adminService:AdminService, private http: HttpClient) { }
 
+  api_url:string = this.adminService.api_url
+  downloadApiLink:string = this.api_url+"download_template"
+  uploadApiLink:string = this.api_url+"upload"
+
   ngOnInit() {
-    this.regForm = new FormGroup({
-      'file_name': new FormControl(null, Validators.required),
-    })
   }
 
   onDownloadTemplate(){
-    // this.adminService.downloadTemplate();
-  }
-
-  onSubmit(){
-    if(this.regForm.valid){
-      console.log(this.regForm.value);
-      // this.adminService.onUploadFile(this.regForm.value);
-    }
+    this.adminService.downloadTemplate();
   }
 
   upload(files) {
 
-    this.adminService.onUploadFileDB(localStorage.getItem('db'));
+    this.adminService.onUploadFileDB(localStorage.getItem('id_token'));
 
     console.log("files data",files);
     if (files.length === 0)
@@ -45,17 +38,11 @@ export class AdminCallComponent implements OnInit {
     for (let file of files)
       formData.append(file.name, file);
 
-      console.log("formdata",formData);
-      const uploadReq = new HttpRequest('POST', `http://192.168.0.175:5000/upload`, formData, {
+    console.log("formdata",formData);
+    const uploadReq = new HttpRequest('POST', this.uploadApiLink, formData, {
       reportProgress: true,
     });
-
-    this.http.request(uploadReq).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress)
-        this.progress = Math.round(100 * event.loaded / event.total);
-      else if (event.type === HttpEventType.Response)
-        this.message = event.body.toString();
-    });
+    
   }
 
 }

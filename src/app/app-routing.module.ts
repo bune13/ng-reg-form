@@ -14,15 +14,18 @@ import { AdminCallComponent } from "./auth/admin/admin-call/admin-call.component
 
 
 const appRouting:Routes = [
-    {path:'', redirectTo:'/signin', pathMatch: 'full'},
+    {path:'', redirectTo:'signin', pathMatch: 'full'},
     {path:'signin', component: SigninComponent},
     {path:'signup', component: SignupComponent},
     {path:'admin', canActivate:[AuthGuard], component: AdminComponent, children:[
-        {path:'', component: AdminHomeComponent},
+        {path:'', redirectTo:'home', pathMatch: 'full'},
+        {path:'home', component: AdminHomeComponent},
         {path:'dashboard', component: AdminDashboardComponent},
         {path:'agentmaster', component: AdminAgentMasterComponent},
         {path:'call', component: AdminCallComponent},
-    ]},
+    ],
+        runGuardsAndResolvers: 'always'
+    },
     {path:'loggedout', component: LoggedOutComponent},
     {path:'error-page', component: ErrorPageComponent, data:{message:'Page Not Found'}},
     {path:'**', redirectTo:'/error-page', pathMatch: 'full'},
@@ -30,7 +33,7 @@ const appRouting:Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(appRouting, {useHash:true}),
+        RouterModule.forRoot(appRouting, {useHash:true, onSameUrlNavigation: 'reload'}),
     ],
     exports: [
         RouterModule
