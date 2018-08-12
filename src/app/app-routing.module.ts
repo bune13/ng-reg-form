@@ -11,6 +11,7 @@ import { LoggedOutComponent } from "./logged-out/logged-out.component";
 import { AdminAgentMasterComponent } from "./auth/admin/admin-agent-master/admin-agent-master.component";
 import { AdminDashboardComponent } from "./auth/admin/admin-dashboard/admin-dashboard.component";
 import { AdminCallComponent } from "./auth/admin/admin-call/admin-call.component";
+import { UnauthComponent } from "./unauth/unauth.component";
 
 
 const appRouting:Routes = [
@@ -27,6 +28,7 @@ const appRouting:Routes = [
     ],
         runGuardsAndResolvers: 'always'
     },
+    {path:'unauth', component: UnauthComponent},
     {path:'loggedout', component: LoggedOutComponent},
     {path:'error-page', component: ErrorPageComponent, data:{message:'Page Not Found'}},
     {path:'**', redirectTo:'/error-page', pathMatch: 'full'},

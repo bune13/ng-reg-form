@@ -24,6 +24,7 @@ import { AdminHeaderComponent } from './auth/admin/admin-header/admin-header.com
 import { AdminDashboardComponent } from './auth/admin/admin-dashboard/admin-dashboard.component';
 import { AdminCallComponent } from './auth/admin/admin-call/admin-call.component';
 import { AdminAgentChatBotComponent } from './auth/admin/admin-agent-chat-bot/admin-agent-chat-bot.component';
+import { UnauthComponent } from './unauth/unauth.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AdminAgentChatBotComponent } from './auth/admin/admin-agent-chat-bot/ad
     AdminDashboardComponent,
     AdminCallComponent,
     AdminAgentChatBotComponent,
+    UnauthComponent,
   ],
   imports: [
     BrowserModule,

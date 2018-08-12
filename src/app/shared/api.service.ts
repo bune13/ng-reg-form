@@ -70,6 +70,18 @@ export class ApiService{
     )
   }
 
+  onFindAgent(){
+    // console.log('on check')
+    return this.httpClient.post(`${this.api_url}checkAgentsPresent`, this.token, httpOptions).subscribe(
+      (result)=>{
+          console.log(result)
+      },
+      (error)=>{
+        console.log(error)
+      }
+    )
+  }
+
   onForgetPassword(value){
     // console.log('Into Forget Password')
     return this.httpClient.post(`${this.api_url}forgetpassword`, value, httpOptions)

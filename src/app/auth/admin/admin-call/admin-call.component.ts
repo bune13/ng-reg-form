@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-call',
@@ -10,7 +11,7 @@ import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/c
 export class AdminCallComponent implements OnInit {
   selectedFile:File = null;
 
-  constructor(private adminService:AdminService, private http: HttpClient) { }
+  constructor(private adminService:AdminService, private http: HttpClient, private router:Router) { }
 
   api_url:string = this.adminService.api_url
   downloadApiLink:string = this.api_url+"download_template"
@@ -54,7 +55,14 @@ export class AdminCallComponent implements OnInit {
     this.adminService.onUploadFileDB(fd).subscribe(
       (res)=>{
         console.log(res)
-      });  
+      },
+      (err)=>{
+        if(err.status != 200){
+          this.router.navigate(['/unauth'])
+        }
+      },
+      ()=>{}
+    );  
   }
 
 }

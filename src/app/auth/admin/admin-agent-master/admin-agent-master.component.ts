@@ -7,6 +7,7 @@ import { ApiService } from '../../../shared/api.service';
   styleUrls: ['./admin-agent-master.component.css']
 })
 export class AdminAgentMasterComponent implements OnInit {
+  userIsPresent:boolean;
 
   constructor(private apiService:ApiService) { }
 
@@ -15,6 +16,9 @@ export class AdminAgentMasterComponent implements OnInit {
 
   onClick(){
     this.apiService.onCheckAuth();
+  }
+  findAgent(){
+    this.apiService.onFindAgent();
   }
 
 }

@@ -18,7 +18,7 @@ from flask_jwt_extended import (JWTManager, create_access_token,
                                 create_refresh_token, jwt_required,
                                 jwt_refresh_token_required, get_jwt_identity,
                                 get_raw_jwt)
-from connection.connection_mongo import conection_admin_db,conection_user_db
+from connection.connection_mongo import conection_admin_db,conection_user_db,conection_agent_db
 con = pymongo.MongoClient()
 collection = con.test
 app = Flask(__name__)
@@ -140,7 +140,8 @@ def onlogin():
 @app.route('/checkprotected', methods=['POST'])
 @jwt_required
 def protected():
-    print "########### inside "
+    print "########### CHECK PROTECTED "
+    print get_jwt_identity()
     ret = {
         'current_identity': get_jwt_identity(),  # test
     }
@@ -188,30 +189,47 @@ def upload():
     # print request.file
     # print request.template
     tokenUserName = get_jwt_identity()
-    con = conection_admin_db()
-    c = con.regform.find_one({'username':tokenUserName})
-    admin_db_name =  c['db_name']
-    print admin_db_name
+    if tokenUserName:
+        con = conection_admin_db()
+        c = con.regform.find_one({'username':tokenUserName})
+        admin_db_name =  c['db_name']
+        print admin_db_name
 
 
-    # data = json.loads(request.data)
-    print "~~~~~~~~~~~~~~~~"
-    f = request.files['template']
+        # data = json.loads(request.data)
+        print "~~~~~~~~~~~~~~~~"
+        f = request.files['template']
 
-    # f = request.files['data_file']
+        # f = request.files['data_file']
 
-    #store the file contents as a string
-    fstring = f.read()
-    import csv
-    print fstring
-    #create list of dictionaries keyed by header row
-    csv_dicts = [{k: v for k, v in row.items()} for row in csv.DictReader(fstring.splitlines(), skipinitialspace=True)]
-    d =conection_user_db(admin_db_name)
-    d.local.insert_many(csv_dicts)
-    # p protected()
-    print csv_dicts
-    print "hello"
-    return jsonify({'Found':True}), 200
+        #store the file contents as a string
+        fstring = f.read()
+        import csv
+        print fstring
+        #create list of dictionaries keyed by header row
+        csv_dicts = [{k: v for k, v in row.items()} for row in csv.DictReader(fstring.splitlines(), skipinitialspace=True)]
+        d =conection_user_db(admin_db_name)
+        d.local.insert_many(csv_dicts)
+        # p protected()
+        print csv_dicts
+        print "hello"
+        return jsonify({'Found':True}), 200
+    else:
+        return jsonify({'Found':False}), 401
+
+#------------check agents are present in agent_db
+@app.route('/checkAgentsPresent', methods=["POST"])
+@jwt_required
+def checkAgentsPresent():
+    tokenUserName = get_jwt_identity()
+    if tokenUserName:
+        con = conection_agent_db()
+        c = con.regform.find({})
+        print "#__________CHEKC AGENTs"
+        print c
+        return jsonify({'Found':True}), 200
+    else:
+        return jsonify({'Found':False}), 401
 
 
 if __name__ == '__main__':
