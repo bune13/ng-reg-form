@@ -2,9 +2,16 @@
 
   <div class="container-fluid admin-dashboard-main-line-chart">
     <div class="row">
-      <h4>Visitors</h4>
-      <canvas baseChart height="60px" [data]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [chartType]="lineChartType"
-        [colors]="lineChartColors" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+      <div class="col-12">
+        <span>Visitors</span>
+      </div>
+      <div class="col-12 mb-4">
+        <small>Unique visitors by month</small>
+      </div>
+      <div class="col-12">
+        <canvas baseChart height="60px" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [chartType]="lineChartType"
+          [colors]="lineChartColors" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+      </div>
     </div>
   </div>
 
