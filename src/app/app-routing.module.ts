@@ -17,7 +17,8 @@ const appRouting:Routes = [
     {path:'', redirectTo:'signin', pathMatch: 'full'},
     {path:'signin', component: SigninComponent},
     {path:'signup', component: SignupComponent},
-    {path:'admin', canActivate:[AuthGuard], component: AdminComponent, children:[
+    // {path:'admin', canActivate:[AuthGuard], component: AdminComponent, children:[
+    {path:'admin', component: AdminComponent, children:[
         {path:'', redirectTo:'home', pathMatch: 'full'},
         {path:'home', component: AdminHomeComponent},
         {path:'dashboard', component: AdminDashboardComponent},

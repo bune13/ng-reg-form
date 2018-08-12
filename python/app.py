@@ -181,7 +181,12 @@ def download_template():
 @app.route('/upload', methods=["POST"])
 @jwt_required
 def upload():
-    # print request.data,"data"
+    print "####################"
+    # data = json.dumps(request.data)
+    print request.data
+    # print request.data[0]
+    # print request.file
+    # print request.template
     tokenUserName = get_jwt_identity()
     con = conection_admin_db()
     c = con.regform.find_one({'username':tokenUserName})
@@ -190,7 +195,8 @@ def upload():
 
 
     # data = json.loads(request.data)
-    f = request.files['template.csv']
+    print "~~~~~~~~~~~~~~~~"
+    f = request.files['template']
 
     # f = request.files['data_file']
 
@@ -205,6 +211,7 @@ def upload():
     # p protected()
     print csv_dicts
     print "hello"
+    return jsonify({'Found':True}), 200
 
 
 if __name__ == '__main__':

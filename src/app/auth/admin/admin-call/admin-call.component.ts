@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http'
 
 @Component({
@@ -9,8 +8,7 @@ import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/c
   styleUrls: ['./admin-call.component.css']
 })
 export class AdminCallComponent implements OnInit {
-  public progress: number;
-  public message: string;
+  selectedFile:File = null;
 
   constructor(private adminService:AdminService, private http: HttpClient) { }
 
@@ -27,7 +25,7 @@ export class AdminCallComponent implements OnInit {
 
   upload(files) {
 
-    this.adminService.onUploadFileDB(localStorage.getItem('id_token'));
+    // this.adminService.onUploadFileDB();
 
     console.log("files data",files);
     if (files.length === 0)
@@ -43,6 +41,20 @@ export class AdminCallComponent implements OnInit {
       reportProgress: true,
     });
     
+  }
+
+  onFileSelected(e){
+    this.selectedFile = e.target.files[0]
+    console.log(this.selectedFile)
+  }
+
+  onUpload(){
+    const fd = new FormData();
+    fd.append('template', this.selectedFile, this.selectedFile.name)
+    this.adminService.onUploadFileDB(fd).subscribe(
+      (res)=>{
+        console.log(res)
+      });  
   }
 
 }

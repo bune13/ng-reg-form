@@ -20,8 +20,15 @@
       <div class="col-12 mx-auto">
 
         <div class="row">
-          <div class="col-12 col-md-8">
+          <!-- ------------Start Analytics Container Field------------ -->
+
+          <!-- ------------handle left major space------------ -->
+          <div class="col-12 col-lg-8">
             <div class="row">
+
+              <div class="col-12 mb-3">
+                <span class="admin-analytics-titles">How are your active users trending over time?</span>
+              </div>
 
               <div class="col-12">
                 <div class="row">
@@ -47,40 +54,27 @@
                 </div>
               </div>
 
-              <div class="col-12 mt-3">
-                <div class="row">
+            </div>
+          </div>
 
-                  <div class="col-4">
-                    <div class="on-box left-upper-showcase">
-                      Unique Users
-                    </div>
-                  </div>
-
-                  <div class="col-4">
-                    <div class="on-box left-upper-showcase">
-                      Likes
-                    </div>
-                  </div>
-
-                  <div class="col-4">
-                    <div class="on-box left-upper-showcase">
-                      Unlikes
-                    </div>
-                  </div>
-
+          <!-- ------------handle right minor space------------ -->
+          <div class="col-12 col-lg-4">
+            <div class="row">
+              <div class="col-12 mb-3">
+                <span class="admin-analytics-titles">What are your top devices?</span>
+              </div>
+              <div class="col-12">
+                <div class="on-box donut-chart-right-upper">
+                  <canvas baseChart height="99px" width="80px" [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
+                    (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                  </canvas>
                 </div>
               </div>
-
             </div>
+
           </div>
 
-          <div class="col-12 col-md-4">
-            <div class="on-box donut-chart-right-upper">
-              <canvas baseChart height="99px" width="80px" [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
-                (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
-              </canvas>
-            </div>
-          </div>
+          <!-- ------------End Analytics Container Field------------ -->
         </div>
 
 

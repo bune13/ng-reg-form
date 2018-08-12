@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from './shared/auth-guard.service';
 import { ChartsModule } from 'ng2-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 // import { ApiService } from './shared/api.service';
 
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { TokenInterceptorService } from './auth/admin/token-interceptor.service'
 import { AdminHeaderComponent } from './auth/admin/admin-header/admin-header.component';
 import { AdminDashboardComponent } from './auth/admin/admin-dashboard/admin-dashboard.component';
 import { AdminCallComponent } from './auth/admin/admin-call/admin-call.component';
+import { AdminAgentChatBotComponent } from './auth/admin/admin-agent-chat-bot/admin-agent-chat-bot.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { AdminCallComponent } from './auth/admin/admin-call/admin-call.component
     AdminHeaderComponent,
     AdminDashboardComponent,
     AdminCallComponent,
+    AdminAgentChatBotComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ import { AdminCallComponent } from './auth/admin/admin-call/admin-call.component
     AlertModule.forRoot(),
     ChartsModule,
     AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthGuard,

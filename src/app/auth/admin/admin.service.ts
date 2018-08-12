@@ -10,10 +10,15 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
+const httpOptions2 = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/vnd.ms-excel' })
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
+  value:Object;
 
   constructor(private httpClient:HttpClient, private router:Router, private apiService:ApiService) { }
 
@@ -30,15 +35,8 @@ export class AdminService {
       ));
   }
 
-  onUploadFileDB(value){
-    return this.httpClient.post(`${this.api_url}upload`, value, httpOptions).subscribe(
-      (result)=>{
-        console.log(result);
-      },
-      (error)=>{
-        console.log(error);
-      }
-    )
+  onUploadFileDB(fd){
+    return this.httpClient.post(`${this.api_url}upload`, fd);
   }
   
 
