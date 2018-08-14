@@ -23,7 +23,6 @@ import { TokenInterceptorService } from './auth/admin/token-interceptor.service'
 import { AdminHeaderComponent } from './auth/admin/admin-header/admin-header.component';
 import { AdminDashboardComponent } from './auth/admin/admin-dashboard/admin-dashboard.component';
 import { AdminCallComponent } from './auth/admin/admin-call/admin-call.component';
-import { AdminAgentChatBotComponent } from './auth/admin/admin-agent-chat-bot/admin-agent-chat-bot.component';
 import { UnauthComponent } from './unauth/unauth.component';
 
 @NgModule({
@@ -41,7 +40,6 @@ import { UnauthComponent } from './unauth/unauth.component';
     AdminHeaderComponent,
     AdminDashboardComponent,
     AdminCallComponent,
-    AdminAgentChatBotComponent,
     UnauthComponent,
   ],
   imports: [

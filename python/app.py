@@ -217,22 +217,6 @@ def upload():
     else:
         return jsonify({'Found':False}), 401
 
-#------------check agents are present in agent_db
-@app.route('/checkAgentsPresent', methods=["POST"])
-@jwt_required
-def checkAgentsPresent():
-    tokenUserName = get_jwt_identity()
-    if tokenUserName:
-        con = conection_agent_db()
-        c = con.regform.find_one({})
-        print "#__________CHEKC AGENTs"
-        if(c == None):
-            return jsonify({'Found':"None"}), 401
-        else:
-            return jsonify({'Found':True}), 200
-    else:
-        return jsonify({'Found':False}), 401
-
 
 if __name__ == '__main__':
    app.run(debug = True,host='0.0.0.0')
