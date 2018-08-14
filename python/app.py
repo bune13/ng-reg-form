@@ -81,13 +81,12 @@ def register():
         msg = Message('Welcome', sender = 'test.dash@yahoo.com', recipients = [d['email']])
         print d
         
-        confirm_url = "http://localhost:4200/"+UUID_STRIN
-        msg.html=render_template('confirm.html', confirm_url=confirm_url)
-        
-
-        #msg.body = html
-        print msg,type(msg.body)
+        # confirm_url = "http://localhost:4200/"+UUID_STRIN
+        # msg.html=render_template('confirm.html', confirm_url=confirm_url)
+        # #msg.body = html
+        # print msg,type(msg.body)
         mail.send(msg)
+
         return jsonify({'success':True}), 200
     else:
         return jsonify({'success':False}), 404
