@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'node_modules/ngx-bootstrap';
+import { AdminService } from '../admin.service';
 import { ApiService } from '../../../shared/api.service';
 
 @Component({
@@ -8,17 +10,30 @@ import { ApiService } from '../../../shared/api.service';
 })
 export class AdminAgentMasterComponent implements OnInit {
   userIsPresent:boolean;
+  modalRef: BsModalRef;
 
-  constructor(private apiService:ApiService) { }
+  constructor(private adminService:AdminService, private modalService:BsModalService, private apiService:ApiService) { }
 
   ngOnInit() {
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
 
   onClick(){
     this.apiService.onCheckAuth();
   }
   findAgent(){
-    this.apiService.onFindAgent();
+    this.adminService.onFindAgent().subscribe(
+      (res)=>{
+        this.userIsPresent = true;
+      },
+      (err)=>{
+        this.userIsPresent = false;
+      },
+      ()=>{}
+    );
   }
 
 }

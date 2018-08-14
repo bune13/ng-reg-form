@@ -1,5 +1,5 @@
-<!-- <button type="button" class="btn btn-primary" (click)="onClick()">Click</button> -->
-<button type="button" class="btn btn-primary" (click)="findAgent()">Click</button>
+<button type="button" class="btn btn-primary" (click)="onClick()">Check Auth</button>
+<button type="button" class="btn btn-primary" (click)="findAgent()">Check Agents</button>
 
 <section class="admin-call-page">
   <div class="container my-5">
@@ -7,21 +7,44 @@
 
       <div class="col-12">
         <h4>Agents</h4>
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" (click)="openModal(template)">
           <i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Create User
         </button>
         <hr>
-      </div>
+      </div>     
 
-      <div class="col-12">
-        <h4>Agents</h4>
-        <button class="btn btn-primary">
-          <i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Create User
-        </button>
-        <hr>
-      </div>
+
+      <!-- Datatable---------------- -->
+      <ng-template [ngIf]="!userIsPresent">
+        No users
+      </ng-template>
 
 
     </div>
   </div>
 </section>
+
+
+<!-- Modal-------------------- -->
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Agents</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          Hie
+        </div>
+        <div class="col-12">
+          <hr>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ng-template>

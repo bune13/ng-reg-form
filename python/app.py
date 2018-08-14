@@ -224,10 +224,12 @@ def checkAgentsPresent():
     tokenUserName = get_jwt_identity()
     if tokenUserName:
         con = conection_agent_db()
-        c = con.regform.find({})
+        c = con.regform.find_one({})
         print "#__________CHEKC AGENTs"
-        print c
-        return jsonify({'Found':True}), 200
+        if(c == None):
+            return jsonify({'Found':"None"}), 401
+        else:
+            return jsonify({'Found':True}), 200
     else:
         return jsonify({'Found':False}), 401
 

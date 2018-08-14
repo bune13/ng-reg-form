@@ -38,6 +38,10 @@ export class AdminService {
   onUploadFileDB(fd){
     return this.httpClient.post(`${this.api_url}upload`, fd);
   }
+
+  onFindAgent(){
+    return this.httpClient.post(`${this.api_url}checkAgentsPresent`, localStorage.getItem('id_token'), httpOptions)
+  }
   
 
 
