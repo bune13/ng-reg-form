@@ -207,7 +207,7 @@
                 <label for="country">Country
                   <span class="requiredstar">*</span>
                 </label>
-                <input type="string" id="country" class="form-control" placeholder="Country picker to be added" [formControlName]="'country'" [typeahead]="countries" [typeaheadOptionsLimit]="7" [typeaheadMinLength]="0">
+                <input type="string" id="country" class="form-control" placeholder="India" [formControlName]="'country'" [typeahead]="countries" [typeaheadOptionsLimit]="7" [typeaheadMinLength]="0">
                 <div class="valid-feedback" [ngClass]="{'display-validation': regForm.get('country').valid}">
                   Looks good!
                 </div>
