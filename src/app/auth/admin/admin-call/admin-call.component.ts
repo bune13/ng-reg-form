@@ -16,6 +16,7 @@ export class AdminCallComponent implements OnInit {
   uploadProgress:number;
   uploadProgressCompleted:string;
   showProgressBar:boolean = false;
+  showDatatable:boolean = false;
 
   lists:any[];
 
@@ -28,6 +29,22 @@ export class AdminCallComponent implements OnInit {
   uploadApiLink:string = this.api_url+"upload"
 
   ngOnInit() {
+    this.adminService.getAllCallLists().subscribe(
+      (data: any[]) => {
+        // table.destroy();
+        console.log(data);
+        this.showDatatable = true
+        this.lists = JSON.parse(data['result'])
+        this.chRef.detectChanges()
+        const table: any = $('table')
+        this.dataTable = table.DataTable()
+      },
+      (err)=>{
+        console.log(err);
+        this.showDatatable = false
+      },
+      ()=>{}
+    );
   }
 
   onDownloadTemplate(){
@@ -66,18 +83,7 @@ export class AdminCallComponent implements OnInit {
           this.showProgressBar = false;
         }, 2000);
 
-        const table: any = $('table')
-        table.destroy();
-
-        this.adminService.getAllCallLists().subscribe(
-          (data: any[]) => {
-            //if list more than 1 show table
-            // from python do get datatable
-            this.lists = JSON.parse(data['result'])
-            this.chRef.detectChanges()
-            this.dataTable = table.DataTable()
-          }
-        );
+        
       },
       (err)=>{
         if(err.status != 200){
@@ -85,7 +91,7 @@ export class AdminCallComponent implements OnInit {
         }
       },
       ()=>{}
-    );
+    );    
   }
 
 }

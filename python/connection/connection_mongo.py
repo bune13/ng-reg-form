@@ -5,9 +5,9 @@ def conection_admin_db():
     collection = con.admin_db
     return collection
 
-def conection_user_db(db):
+def conection_user_db():
     con = pymongo.MongoClient()
-    collection = con.db
+    collection = con.user_db
     return collection
 
 def conection_agent_db():

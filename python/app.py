@@ -7,6 +7,7 @@ from flask_mail import Mail, Message
 from flask_cors import CORS
 from flask import Response
 from flask import render_template,send_file
+from bson.json_util import dumps
 # from Crypto.Hash import SHA256
 # from flask.ext.api import status
 # from flask_restful import Resource, Api
@@ -172,7 +173,7 @@ def onforgetPassword():
 
 @app.route('/download_template', methods=["GET"])
 def download_template():
-    return send_file('D://UDEMY//New folder//angular//ng-reg-form//python//assest//Insurance.csv',
+    return send_file('D://Abhi//LBH//ng-reg-form//python//assest//Insurance.csv',
                      mimetype='text/csv',
                      attachment_filename='template.csv',
                      as_attachment=True)
@@ -207,7 +208,7 @@ def upload():
         print fstring
         #create list of dictionaries keyed by header row
         csv_dicts = [{k: v for k, v in row.items()} for row in csv.DictReader(fstring.splitlines(), skipinitialspace=True)]
-        d =conection_user_db(admin_db_name)
+        d =conection_user_db()
         d.local.insert_many(csv_dicts)
         # p protected()
         print csv_dicts
@@ -215,6 +216,20 @@ def upload():
         return jsonify({'Found':True}), 200
     else:
         return jsonify({'Found':False}), 401
+
+
+@app.route('/getCallList', methods=["POST"])
+@jwt_required
+def showUploadedCalls():
+    tokenUserName = get_jwt_identity()
+    if tokenUserName:
+        con = conection_user_db()
+        f = dumps(con.local.find({}))
+        if (f == None):
+            return jsonify({'Found' : False}),400
+        return jsonify({'result' : f}),200
+
+
 
 
 if __name__ == '__main__':

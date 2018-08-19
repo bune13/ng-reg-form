@@ -14,17 +14,18 @@
         <!-- <input #file type="file" (change)="upload(file.files)" />
         <hr> -->
         <input type="file" (change)="onFileSelected($event)" class="form-control" accept=".xlsx, .xls, .csv" />
+        <br>
         <button class="btn btn-primary" (click)="onUpload()">Upload</button>
         <br>
         <progressbar *ngIf="this.showProgressBar" [value]="uploadProgress" type="info" [striped]="true">{{uploadProgressCompleted}}</progressbar>
 
       </div>
 
-      <div class="col-12">
+      <div class="col-12" *ngIf="showDatatable">
         <hr>
       </div>
 
-      <div class="col-12">
+      <div class="col-12" *ngIf="showDatatable"> 
         <table class="table table-hover" cellspacing="0">
           <thead>
             <tr>
@@ -35,6 +36,8 @@
               <th>Insurance Name</th>
               <th>Insurance Date</th>
               <th>Check Number</th>
+              <th>Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -46,6 +49,8 @@
               <td>{{list["Insurance name"]}}</td>
               <td>{{list["Insurance Date"]}}</td>
               <td>{{list["Check number"]}}</td>
+              <td>Not Verified</td>
+              <td style="text-align:center;cursor:pointer"><i class="fa fa-phone" aria-hidden="true"></i></td>
             </tr>
           </tbody>
         </table>
