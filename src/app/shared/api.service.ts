@@ -91,7 +91,8 @@ export class ApiService{
   }
 
   isAuthenticatedService(){
-    return this.token != null
+    // return this.token != null
+    return localStorage.getItem('id_token') != null
   }
 
 }
