@@ -41,6 +41,29 @@ app.config['JWT_SECRET_KEY'] = 'a37e1644f392640ce05cc29fc1c0859ddd56badba6a68d84
 jwt = JWTManager(app)
 print jwt
 
+TWILIO_ACCOUNT_SID = "AC7f98069648dfa6893ef7c11240710a21"                       #authentication ID for the account
+TWILIO_AUTH_TOKEN = "448e3ecd0f3406352252aaebe1b546c5"                          #authentication token
+
+
+
+app = Flask(__name__)
+app.secret_key = "secret key"
+
+@app.route('/call', methods=['POST'])
+def call():
+    if request.method == 'POST':
+        data = json.loads(request.data)
+        print data
+
+        client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+        for ph in data:
+        
+            call = client.calls.create(                                     
+                to=ph,                                         
+                from_="+13143473598",                                       
+            url="https://3ff82c91.ngrok.io/voice2/{}".format(ph)        
+              )
+        return "ok"
 
 # -------------- TO CHECK IF USERID EXISTS --------------
 def checkusername(value):
