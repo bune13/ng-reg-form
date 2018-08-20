@@ -25,7 +25,11 @@
         <hr>
       </div>
 
-      <div class="col-12" *ngIf="showDatatable"> 
+      <div class="col-12" *ngIf="showDatatable">
+        <button class="btn btn-dark" (click)="onClickCallToAllUser()">Call All</button>
+      </div>
+
+      <div class="col-12 mt-3" *ngIf="showDatatable"> 
         <table class="table table-hover" cellspacing="0">
           <thead>
             <tr>
@@ -43,14 +47,14 @@
           <tbody>
             <tr *ngFor="let list of lists; let i = index">
               <td>{{i+1}}</td>
-              <td>{{list["Full name"]}}</td>
-              <td>{{list["Phone number"]}}</td>
-              <td>{{list["Address"]}}</td>
-              <td>{{list["Insurance name"]}}</td>
+              <td>?</td>
+              <td>{{list["Phone number"]["body"]}}</td>
+              <td>?</td>
+              <td>{{list["Insurance name"]["body"]}}</td>
               <td>{{list["Insurance Date"]}}</td>
               <td>{{list["Check number"]}}</td>
               <td>Not Verified</td>
-              <td style="text-align:center;cursor:pointer"><i class="fa fa-phone" aria-hidden="true"></i></td>
+              <td style="text-align:center;"><i class="fa fa-phone" aria-hidden="true" style="cursor:pointer" (click)="onClickCallToUser(list['Phone number']['body'])"></i></td>
             </tr>
           </tbody>
         </table>

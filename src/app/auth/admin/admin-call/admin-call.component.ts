@@ -19,6 +19,7 @@ export class AdminCallComponent implements OnInit {
   showDatatable:boolean = false;
 
   lists:any[];
+  callAllList:any[] = []
 
   dataTable: any;
 
@@ -35,6 +36,15 @@ export class AdminCallComponent implements OnInit {
         console.log(data);
         this.showDatatable = true
         this.lists = JSON.parse(data['result'])
+        this.lists.forEach((q)=> {
+          // console.log(q)
+          // console.log(q["Phone number"]["body"])
+          this.callAllList.push(q["Phone number"]["body"])
+          // console.log(this.callAllList)
+        })
+        // for (let q of this.lists) {
+        //   this.callAllList.push(q['Phone Number']['ph'])
+        // }
         this.chRef.detectChanges()
         const table: any = $('table')
         this.dataTable = table.DataTable()
@@ -92,6 +102,34 @@ export class AdminCallComponent implements OnInit {
       },
       ()=>{}
     );    
+  }
+
+  onClickCallToUser(number){
+    this.adminService.callSingleUser(number).subscribe(
+      (res)=>{
+        console.log(res)
+      },
+      (err)=>{
+        console.log(err)
+      },
+      ()=>{}
+    );
+  }
+
+  onClickCallToAllUser(){
+
+    this.callAllList.forEach((singleNumber)=>{
+      this.adminService.callSingleUser(singleNumber).subscribe(
+        (res)=>{
+          console.log(res)
+        },
+        (err)=>{
+          console.log(err)
+        },
+        ()=>{}
+      );
+    })
+    
   }
 
 }

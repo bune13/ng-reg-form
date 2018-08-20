@@ -46,6 +46,23 @@ export class AdminService {
   getAllCallLists(){
     return this.httpClient.post(`${this.api_url}getCallList`, localStorage.getItem('id_token'), httpOptions)
   }
+
+  callSingleUser(number){
+    let numberAr:any[]=[number]
+    let f:Object = {
+      'number':numberAr,
+      // 'token':localStorage.getItem('id_token')
+    }
+    return this.httpClient.post(`${this.api_url}call`, f, httpOptions)
+  }
+
+  // callAllUser(number:any[]){
+  //   let f:Object = {
+  //     'number':number,
+  //     // 'token':localStorage.getItem('id_token')
+  //   }
+  //   return this.httpClient.post(`${this.api_url}call`, f, httpOptions)
+  // }
   
 
 
