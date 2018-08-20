@@ -8,6 +8,18 @@ from flask_cors import CORS
 from flask import Response
 from flask import render_template,send_file
 from bson.json_util import dumps
+from flask import Flask, Response,session                                                      #importing all the modules
+from twilio.twiml.voice_response import Gather, VoiceResponse, Say                             #importing all the modules
+from twilio.twiml.voice_response import VoiceResponse                                          #importing all the modules
+from flask import Flask, Response,request                                                      #importing all the modules
+from flask import Flask, render_template                                                       #importing all the modules
+import yaml            #importing the format of the file used to store data
+from twilio.twiml.voice_response import Play, VoiceResponse   
+import requests
+from twilio.rest import Client
+from flask import send_file 
+import json
+import ast  
 # from Crypto.Hash import SHA256
 # from flask.ext.api import status
 # from flask_restful import Resource, Api
