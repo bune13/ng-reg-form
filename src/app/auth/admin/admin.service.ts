@@ -42,6 +42,10 @@ export class AdminService {
   onFindAgent(){
     return this.httpClient.post(`${this.api_url}checkAgentsPresent`, localStorage.getItem('id_token'), httpOptions)
   }
+
+  getAllCallLists(){
+    return this.httpClient.post(`${this.api_url}getCallList`, localStorage.getItem('id_token'), httpOptions)
+  }
   
 
 

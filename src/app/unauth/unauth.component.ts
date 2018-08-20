@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-unauth',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UnauthComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
+    localStorage.clear();
+    setTimeout(() => {
+      this.router.navigate(['/signin'])
+    }, 4000);
   }
 
 }

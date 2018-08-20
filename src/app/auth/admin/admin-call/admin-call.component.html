@@ -4,17 +4,54 @@
 
       <div class="col-12 mx-auto">
 
-        <p class="download-text">Please download the template <a [href]="downloadApiLink">file</a>.</p>        
+        <p class="download-text">Please download the template
+          <a [href]="downloadApiLink">file</a>.</p>
         <!-- <button class="btn btn-primary" type="button" (click)="onDownloadTemplate()http://127.0.0.1:5000/download_template">Download</button> -->
         <hr>
 
-        <h4>Upload You File</h4><br>
+        <h4>Upload You File</h4>
+        <br>
         <!-- <input #file type="file" (change)="upload(file.files)" />
         <hr> -->
-        <input type="file" (change)="onFileSelected($event)" />
+        <input type="file" (change)="onFileSelected($event)" class="form-control" accept=".xlsx, .xls, .csv" />
         <button class="btn btn-primary" (click)="onUpload()">Upload</button>
+        <br>
+        <progressbar *ngIf="this.showProgressBar" [value]="uploadProgress" type="info" [striped]="true">{{uploadProgressCompleted}}</progressbar>
 
       </div>
+
+      <div class="col-12">
+        <hr>
+      </div>
+
+      <div class="col-12">
+        <table class="table table-hover" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Sr No.</th>
+              <th>Full Name</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Insurance Name</th>
+              <th>Insurance Date</th>
+              <th>Check Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of lists; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{list["Full name"]}}</td>
+              <td>{{list["Phone number"]}}</td>
+              <td>{{list["Address"]}}</td>
+              <td>{{list["Insurance name"]}}</td>
+              <td>{{list["Insurance Date"]}}</td>
+              <td>{{list["Check number"]}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
     </div>
   </div>
 </section>

@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AdminService } from '../admin.service';
-import { HttpClient, HttpRequest } from '@angular/common/http'
+import { HttpClient, HttpRequest, HttpEventType } from '@angular/common/http'
 import { Router } from '@angular/router';
+import * as $ from 'jquery';
+import 'datatables.net';
+import 'datatables.net-bs4';
 
 @Component({
   selector: 'app-admin-call',
@@ -10,8 +13,15 @@ import { Router } from '@angular/router';
 })
 export class AdminCallComponent implements OnInit {
   selectedFile:File = null;
+  uploadProgress:number;
+  uploadProgressCompleted:string;
+  showProgressBar:boolean = false;
 
-  constructor(private adminService:AdminService, private http: HttpClient, private router:Router) { }
+  lists:any[];
+
+  dataTable: any;
+
+  constructor(private adminService:AdminService, private http: HttpClient, private router:Router, private httpClient: HttpClient, private chRef: ChangeDetectorRef) { }
 
   api_url:string = this.adminService.api_url
   downloadApiLink:string = this.api_url+"download_template"
@@ -24,37 +34,50 @@ export class AdminCallComponent implements OnInit {
     this.adminService.downloadTemplate();
   }
 
-  upload(files) {
-
-    // this.adminService.onUploadFileDB();
-
-    console.log("files data",files);
-    if (files.length === 0)
-      return;
-
-    const formData = new FormData();
-
-    for (let file of files)
-      formData.append(file.name, file);
-
-    console.log("formdata",formData);
-    const uploadReq = new HttpRequest('POST', this.uploadApiLink, formData, {
-      reportProgress: true,
-    });
-    
-  }
-
   onFileSelected(e){
     this.selectedFile = e.target.files[0]
     console.log(this.selectedFile)
   }
 
   onUpload(){
+    
     const fd = new FormData();
     fd.append('template', this.selectedFile, this.selectedFile.name)
-    this.adminService.onUploadFileDB(fd).subscribe(
-      (res)=>{
-        console.log(res)
+    this.httpClient.post(`${this.api_url}upload`, fd, {
+      reportProgress: true,
+      observe: 'events'
+    }).subscribe(
+      (event)=>{
+        this.showProgressBar = true;
+
+        if(event.type === HttpEventType.UploadProgress){
+          console.log('Upload Progress: ' + Math.round(event.loaded/event.total*100)+'%')
+          this.uploadProgress = Math.round(event.loaded/event.total*100)
+          this.uploadProgressCompleted = String(this.uploadProgress)+"%"
+          if(this.uploadProgress == 100){
+            this.uploadProgressCompleted = "Completed"
+          }
+          console.log(this.uploadProgress)
+        } else if(event.type === HttpEventType.Response){
+          console.log(event)
+        }
+
+        setTimeout(() => {
+          this.showProgressBar = false;
+        }, 2000);
+
+        const table: any = $('table')
+        table.destroy();
+
+        this.adminService.getAllCallLists().subscribe(
+          (data: any[]) => {
+            //if list more than 1 show table
+            // from python do get datatable
+            this.lists = JSON.parse(data['result'])
+            this.chRef.detectChanges()
+            this.dataTable = table.DataTable()
+          }
+        );
       },
       (err)=>{
         if(err.status != 200){
@@ -62,7 +85,7 @@ export class AdminCallComponent implements OnInit {
         }
       },
       ()=>{}
-    );  
+    );
   }
 
 }
