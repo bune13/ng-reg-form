@@ -15,7 +15,7 @@ export class LoggedOutComponent implements OnInit {
       ()=>{
         this.router.navigate(['/signin']);
       }
-    ),5000)
+    ),2000)
   }
 
 }
