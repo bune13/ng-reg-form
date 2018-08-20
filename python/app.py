@@ -58,7 +58,7 @@ TWILIO_AUTH_TOKEN = "448e3ecd0f3406352252aaebe1b546c5"                          
 
 
 
-app = Flask(__name__)
+# app = Flask(__name__)
 app.secret_key = "secret key"
 
 @app.route('/call', methods=['POST'])
@@ -75,7 +75,21 @@ def call():
                 from_="+13143473598",                                       
             url="https://3ff82c91.ngrok.io/voice2/{}".format(ph)        
               )
-        return "ok"
+        return call.sid
+
+
+@app.route('/voice/<ph>')
+def voice_survey(ph):
+    response = VoiceResponse()
+
+    survey = Survey.query.first()
+    if survey_error(survey, response.say):
+        return str(response)
+
+    welcome_user(survey, response.say)
+    redirect_to_first_question(response, survey)
+    return str(response)
+
 
 # -------------- TO CHECK IF USERID EXISTS --------------
 def checkusername(value):
