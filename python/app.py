@@ -68,7 +68,7 @@ def call():
         con = conection_user_db()
         call_detail = con.local.find_one({'Phone number.body':data['number'][0]})
         # print call_detail
-        url="https://4c4e13da.ngrok.io/voice/{}".format(data['number'][0])
+        url="https://a7051443.ngrok.io/voice/{}".format(data['number'][0])
         print url
         if call_detail:
             call = client.calls.create(    
@@ -122,25 +122,79 @@ def voice_twiml(ph):
     response = VoiceResponse()
     print question,'@@@@@@@@@@@@@@@@    '
     con = conection_user_db()
+    gather = Gather(num_digits=1)
+
     questions = con.local.find_one({'Phone number.body':ph},{'_id':False})
     response.say(questions['Phone number']['Question'])
-    response.say(VOICE_INSTRUCTIONS[question.kind])
-
-    # action_url = url_for('answer', question_id=question.id)
-    # transcription_url = url_for('answer_transcription',
-    #                             question_id=question.id)
-    # if question.kind == Question.TEXT:
-    #     response.record(action=action_url,
-    #                     transcribe_callback=transcription_url)
+    response.say('Please press the one key for yes and the zero key for no and then hit the pound sign')
+    response.append(gather)
+    print response
+    print '*'*30
+    action_url = url_for('answer', question_id=ph)
+    transcription_url = url_for('answer_transcription',
+                                question_id=ph)
+  
+    response.record(action=action_url,
+                    transcribe_callback=transcription_url)
     # else:
     #     response.gather(action=action_url)
     return str(response)
+@app.route('/answer/<question_id>', methods=['POST'])
+def answer(question_id):
+    # question = Question.query.get(question_id)
+    print request
+    print "#"*10
+    # content=extract_content(question)
+    # print content
+    # db.save(Answer(content=extract_content(question),
+    #                question=question,
+    #                session_id=session_id()))
 
+    # next_question = question.next()
+    # if next_question:
+    #     return redirect_twiml(next_question)
+    # else:
+    #     return goodbye_twiml()
 VOICE_INSTRUCTIONS = {
         'Question.TEXT': 'Please record your answer after the beep and then hit the pound sign',
-        'Question.BOOLEAN': 'Please press the one key for yes and the zero key for no and then hit the pound sign',
+        'BOOLEAN': 'Please press the one key for yes and the zero key for no and then hit the pound sign',
         'Question.NUMERIC': 'Please press a number between 1 and 10 and then hit the pound sign'
 }
+
+def extract_content(question):
+
+        return request.values['Digits']
+
+
+
+
+
+def goodbye_twiml():
+
+    response = VoiceResponse()
+    response.say("Thank you for answering our survey. Good bye!")
+    response.hangup()
+    if 'question_id' in session:
+        del session['question_id']
+    return str(response)
+
+
+
+
+
+@app.route('/answer/transcription/<question_id>', methods=['POST'])
+def answer_transcription(question_id):
+    print request.values
+    print '@'*30
+    session_id = request.values['CallSid']
+    content = request.values['Digits']
+    print content
+    # Answer.update_content(session_id, question_id, content)
+    return ''
+
+
+def session_id():
+    return request.values.get('CallSid') or request.values['MessageSid']
 # -------------- TO CHECK IF USERID EXISTS --------------
 def checkusername(value):
     d = str(uuid.uuid4())[:8]
